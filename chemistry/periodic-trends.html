@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Periodic Trends - Pankaj Classes</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .stats-panel {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm); padding: 1rem; margin-top: 1rem;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+        }
+        .stat-item { display: flex; justify-content: space-between; font-size: 0.85rem; }
+        .stat-item .label { color: var(--text-secondary); }
+        .stat-item .val { color: var(--chemistry-color); font-weight: 600; font-family: 'Courier New', monospace; }
+        .element-display {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius); padding: 2rem; text-align: center;
+            margin-bottom: 1rem;
+        }
+        .element-number { font-size: 1.5rem; color: var(--text-secondary); }
+        .element-symbol { font-size: 4rem; font-weight: 800; margin: 0.5rem 0; }
+        .element-name { font-size: 1.2rem; color: var(--text-secondary); }
+        .trends-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 1rem; }
+        .trend-item { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 0.8rem; }
+        .trend-item .trend-label { font-size: 0.8rem; color: var(--text-secondary); }
+        .trend-item .trend-value { font-size: 1.3rem; font-weight: 700; color: var(--chemistry-color); }
+        .navbar-sim {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-sim .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .navbar-sim .site-logo {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3));
+        }
+        .navbar-sim .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .navbar-sim .logo-text h1 {
+            font-size: 1.1rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--physics-color), var(--primary), var(--chemistry-color), var(--maths-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .navbar-sim .nav-center {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar-sim .nav-center h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #cccccc, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .navbar-sim .back-btn {
+            margin: 0;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .sim-page { padding: 0; height: calc(100vh - 70px); display: flex; flex-direction: column; }
+        .sim-container { display: flex; flex: 1; gap: 0; overflow: hidden; }
+        .sim-container > div:first-child { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .canvas-wrapper { flex: 1; margin: 1rem; margin-bottom: 0.5rem; border-radius: var(--radius); overflow: hidden; }
+        .canvas-wrapper canvas { width: 100%; height: 100%; display: block; }
+        .stats-panel { margin: 0 1rem 1rem 1rem; padding: 0.7rem; font-size: 0.8rem; }
+        .stats-panel .stat-item { padding: 0.2rem 0; }
+        .controls-panel { width: 300px; max-height: none; overflow-y: auto; margin: 1rem 1rem 1rem 0.5rem; padding: 1.2rem; border-radius: var(--radius); }
+        .controls-panel h3 { margin-bottom: 1rem; font-size: 1rem; }
+        .control-group { margin-bottom: 1rem; }
+        .control-group label { font-size: 0.8rem; }
+        .control-group input[type="range"] { height: 4px; }
+        .control-group input[type="range"]::-webkit-slider-thumb { width: 14px; height: 14px; }
+        .info-box { font-size: 0.75rem; margin-top: 1rem; padding: 0.7rem; }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-sim">
+            <img src="../assets/logo.png" alt="Logo" class="site-logo">
+
+            <div class="logo-text"><h1>Pankaj Classes</h1></div>
+            <div class="nav-center"><h1>Periodic Trends</h1></div>
+            <button class="back-btn" onclick="window.location.href='../index.html#chemistry'">Back to Chemistry</button>
+        </nav>
+    </header>
+    <main class="sim-page">
+        <div class="sim-container">
+            <div>
+                <div class="element-display">
+                    <div class="element-number" id="elNumber">6</div>
+                    <div class="element-symbol" id="elSymbol" style="color: #cccccc;">C</div>
+                    <div class="element-name" id="elName">Carbon</div>
+                </div>
+                <div class="trends-grid">
+                    <div class="trend-item"><div class="trend-label">Atomic Radius</div><div class="trend-value" id="trendRadius">77 pm</div></div>
+                    <div class="trend-item"><div class="trend-label">Ionization Energy</div><div class="trend-value" id="trendIE">1086 kJ/mol</div></div>
+                    <div class="trend-item"><div class="trend-label">Electronegativity</div><div class="trend-value" id="trendEN">2.55</div></div>
+                    <div class="trend-item"><div class="trend-label">Electron Affinity</div><div class="trend-value" id="trendEA">-154 kJ/mol</div></div>
+                </div>
+                <div class="canvas-wrapper"><canvas id="chartCanvas" width="600" height="300"></canvas></div>
+            </div>
+            <div class="controls-panel">
+                <h3>Select Element</h3>
+                <div class="control-group"><label>Period: <span class="value" id="periodVal">2</span></label><input type="range" id="period" min="1" max="6" value="2" step="1"></div>
+                <div class="control-group"><label>Group: <span class="value" id="groupVal">14</span></label><input type="range" id="group" min="1" max="18" value="14" step="1"></div>
+                <div class="sim-buttons"><button class="sim-btn primary" id="applyBtn">Apply</button></div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/obfuscated/chemistry/periodic-trends-inline.js"></script>
+    <script src="../js/obfuscated/chemistry/periodic-trends-inline.js"></script>            </body>
+</html>

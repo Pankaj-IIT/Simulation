@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ion Linear Construction Lab - Pankaj Classes</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        :root {
+            --board-green: #1b382b;
+            --chalk-white: #f5f6fa;
+            --chalk-yellow: #f1c40f;
+            --chalk-cyan: #00cec9;
+            --border-wood: #4d301c;
+        }
+
+        body {
+            background: #2c3e50;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--chalk-white);
+            overflow: hidden;
+        }
+
+        .navbar-sim {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-sim .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-sim .site-logo {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3));
+        }
+
+        .navbar-sim .logo-text h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: none;
+            -webkit-text-fill-color: #fff;
+            color: #fff;
+        }
+
+        .navbar-sim .nav-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .navbar-sim .nav-center h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #cccccc, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-sim .nav-right {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .navbar-sim .back-btn {
+            margin: 0;
+            width: 160px;
+            text-align: center;
+            flex-shrink: 0;
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background 0.3s;
+        }
+
+        .navbar-sim .back-btn:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .navbar-sim .fs-btn {
+            margin: 0;
+            width: 160px;
+            text-align: center;
+            flex-shrink: 0;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .navbar-sim .fs-btn:hover {
+            opacity: 0.85;
+        }
+
+        .sim-page {
+            display: flex;
+            height: calc(100vh - 70px);
+            padding: 0.8rem;
+            box-sizing: border-box;
+            gap: 0.8rem;
+        }
+
+        .blackboard-side {
+            flex: 1;
+            background: var(--board-green);
+            border: 12px solid var(--border-wood);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 4px 4px 15px rgba(0,0,0,0.6);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .constructor-side {
+            flex: 1;
+            background: #2d3436;
+            border: 1px solid #4a4a4a;
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .board-header-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px dashed rgba(255,255,255,0.15);
+            padding-bottom: 0.4rem;
+            font-size: 0.85rem;
+        }
+
+        .board-score-item span { color: var(--chalk-yellow); }
+
+        .board-quest-panel {
+            text-align: center;
+            margin: 0.5rem 0;
+        }
+
+        .board-quest-panel .target-name {
+            font-size: 2rem;
+            margin: 0.2rem 0;
+            color: var(--chalk-yellow);
+        }
+
+        .canvas-container-box {
+            flex: 1;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            border: 1px dashed rgba(255,255,255,0.1);
+        }
+
+        .canvas-container-box canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .board-preview-container {
+            border-top: 2px dashed rgba(255,255,255,0.15);
+            padding-top: 0.5rem;
+            text-align: center;
+        }
+
+        .live-formula-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fff;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .panel-section-title {
+            font-size: 0.85rem;
+            color: #dfe6e9;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 0.4rem;
+            border-left: 3px solid var(--chalk-cyan);
+            padding-left: 0.4rem;
+        }
+
+        .keyboard-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            background: #1e1e24;
+            padding: 0.6rem;
+            border-radius: 6px;
+            border: 1px solid #3d3d4a;
+        }
+
+        .key-btn {
+            padding: 0.5rem 0.8rem;
+            background: #34495e;
+            color: #fff;
+            border: 1px solid #465d75;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .key-btn:hover { background: #4e6a85; }
+        .key-btn.element-type { background: #2980b9; border-color: #3498db; }
+        .key-btn.element-type:hover { background: #3498db; }
+        .key-btn.sub-type { background: #27ae60; border-color: #2ecc71; font-size: 1.3rem; }
+        .key-btn.sub-type:hover { background: #2ecc71; }
+        .key-btn.bracket-type { background: #8e44ad; border-color: #9b59b6; }
+
+        .sequence-tape {
+            background: #111;
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 0.6rem;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .tape-node {
+            background: #2d3436;
+            border: 1px solid #636e72;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .tape-node .clear-node {
+            color: #ff7675;
+            cursor: pointer;
+            font-weight: normal;
+            margin-left: 0.2rem;
+        }
+
+        .btn-flex-group {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .mod-btn {
+            flex: 1;
+            padding: 0.5rem;
+            background: #2c3e50;
+            color: #fff;
+            border: 1px solid #455a64;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .mod-btn.active {
+            background: var(--chalk-cyan);
+            color: #000;
+            border-color: #fff;
+        }
+
+        .action-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .control-action-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-verify { background: #00b894; color: white; }
+        .btn-skip { background: #7f8c8d; color: white; }
+        .btn-clear-all { background: #d63031; color: white; padding: 0.5rem 1rem; border-radius: 4px; border: none; cursor: pointer; font-weight: bold;}
+
+        .board-feedback-ticker {
+            padding: 0.4rem;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-top: 0.4rem;
+            display: none;
+        }
+        .fb-success { background: rgba(46, 204, 113, 0.25); border: 1px solid #2ecc71; color: #2ecc71; }
+        .fb-error { background: rgba(231, 76, 60, 0.25); border: 1px solid #e74c3c; color: #e74c3c; }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar navbar-sim">
+        <img src="../assets/logo.png" alt="Logo" class="site-logo">
+
+        <div class="logo-text"><h1>Pankaj Classes</h1></div>
+
+        <div class="nav-center">
+            <h1>Ion Linear Construction Lab</h1>
+        </div>
+
+        <div class="nav-right">
+            <button class="fs-btn" id="fullscreenBtn">Go Fullscreen</button>
+            <button class="back-btn"
+                onclick="window.location.href='../index.html#chemistry'">
+                Back to Chemistry
+            </button>
+        </div>
+    </nav>
+</header>
+
+<main class="sim-page">
+    <div class="blackboard-side">
+        <div class="board-header-row">
+            <div class="board-score-item">SCORE: <span id="boardScore">0 XP</span></div>
+            <div class="board-header-row" style="border:none; padding:0; gap:20px;">
+                <div class="board-score-item">STREAK: <span id="boardStreak">0 ??</span></div>
+                <div class="board-score-item">RECORD: <span id="boardHighScore">0 XP</span></div>
+            </div>
+        </div>
+
+        <div class="board-quest-panel">
+            <div style="font-size:0.8rem; color:#bdc3c7; letter-spacing:1px;">CONSTRUCT TARGET CHEMICAL SPECIES:</div>
+            <div class="target-name" id="targetIonName">Loading Target...</div>
+        </div>
+
+        <div class="canvas-container-box">
+            <canvas id="simCanvas"></canvas>
+        </div>
+
+        <div class="board-preview-container">
+            <div style="font-size:0.75rem; color:#bdc3c7;">Student Structural String Sequence Preview:</div>
+            <div class="live-formula-display" id="liveFormulaDisplay"></div>
+            <div id="boardFeedback" class="board-feedback-ticker"></div>
+        </div>
+    </div>
+
+    <div class="constructor-side">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="panel-section-title" style="margin:0;">1. Active Construction Strip Sequence</div>
+            <button class="btn-clear-all" id="clearAllBtn">Reset Strip</button>
+        </div>
+        <div class="sequence-tape" id="sequenceTape"></div>
+
+        <div class="panel-section-title">2. Character Toolkit Keyboard</div>
+        <div class="keyboard-grid">
+            <button class="key-btn element-type" data-type="elem" data-val="H">H</button>
+            <button class="key-btn element-type" data-type="elem" data-val="C">C</button>
+            <button class="key-btn element-type" data-type="elem" data-val="N">N</button>
+            <button class="key-btn element-type" data-type="elem" data-val="O">O</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Na">Na</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Mg">Mg</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Al">Al</button>
+            <button class="key-btn element-type" data-type="elem" data-val="S">S</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Cl">Cl</button>
+            <button class="key-btn element-type" data-type="elem" data-val="K">K</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Ca">Ca</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Cr">Cr</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Mn">Mn</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Fe">Fe</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Cu">Cu</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Zn">Zn</button>
+            <button class="key-btn element-type" data-type="elem" data-val="As">As</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Br">Br</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Ag">Ag</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Sn">Sn</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Sb">Sb</button>
+            <button class="key-btn element-type" data-type="elem" data-val="I">I</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Ba">Ba</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Hg">Hg</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Pb">Pb</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Bi">Bi</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Co">Co</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Cd">Cd</button>
+            <button class="key-btn element-type" data-type="elem" data-val="Sr">Sr</button>
+            <button class="key-btn element-type" data-type="elem" data-val="B">B</button>
+            <button class="key-btn bracket-type" data-type="bracket" data-val="(">(</button>
+            <button class="key-btn bracket-type" data-type="bracket" data-val=")">)</button>
+            
+            <button class="key-btn sub-type" data-type="sub" data-val="2">2</button>
+            <button class="key-btn sub-type" data-type="sub" data-val="3">3</button>
+            <button class="key-btn sub-type" data-type="sub" data-val="4">4</button>
+            <button class="key-btn sub-type" data-type="sub" data-val="6">6</button>
+            <button class="key-btn sub-type" data-type="sub" data-val="7">7</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+            <div>
+                <div class="panel-section-title">3. Valency Polarity</div>
+                <div class="btn-flex-group" id="polarityGroup">
+                    <button class="mod-btn active" data-val="-">-</button>
+                    <button class="mod-btn" data-val="+">+</button>
+                </div>
+            </div>
+            <div>
+                <div class="panel-section-title">4. Net Valency Magnitude</div>
+                <div class="btn-flex-group" id="magnitudeGroup">
+                    <button class="mod-btn active" data-val="1">1</button>
+                    <button class="mod-btn" data-val="2">2</button>
+                    <button class="mod-btn" data-val="3">3</button>
+                    <button class="mod-btn" data-val="4">4</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-container">
+            <button class="control-action-btn btn-skip" id="skipBtn">Skip Quest</button>
+            <button class="control-action-btn btn-verify" id="verifyBtn">Verify Sequence Formula</button>
+        </div>
+    </div>
+</main>
+
+<script src="../js/obfuscated/chemistry/ions-inline.js"></script>
+<script src="../js/sim-common.js"></script>
+            </body>
+</html>

@@ -1,0 +1,332 @@
+{
+  "arjuns-arrow.html": {
+    "title": "Arjuns Arrow - Projectile Motion",
+    "learn": [
+      "Understanding projectile motion and trajectory",
+      "How launch angle affects distance and height",
+      "The role of initial velocity in projectile motion",
+      "Gravity's effect on projectile path",
+      "Calculating range and maximum height",
+      "Optimal launch angle for maximum range (45 degrees)"
+    ]
+  },
+  "circular-motion.html": {
+    "title": "Circular Motion",
+    "learn": [
+      "Uniform circular motion and centripetal acceleration",
+      "Relationship between velocity, radius, and period",
+      "Why direction changes even at constant speed",
+      "Centripetal force and its sources",
+      "Angular velocity and its relationship to linear velocity",
+      "Real-world examples: planets, satellites, and rotating objects"
+    ]
+  },
+  "cross-product.html": {
+    "title": "Cross Product of Vectors",
+    "learn": [
+      "Definition and formula for cross product",
+      "Right-hand rule for determining direction",
+      "Magnitude equals area of parallelogram",
+      "Cross product is perpendicular to both input vectors",
+      "Applications in torque and angular momentum",
+      "When cross product equals zero (parallel vectors)"
+    ]
+  },
+  "dot-product.html": {
+    "title": "Dot Product of Vectors",
+    "learn": [
+      "Definition and formula for dot product",
+      "Geometric interpretation: projection of one vector onto another",
+      "Dot product equals zero for perpendicular vectors",
+      "Using dot product to find angle between vectors",
+      "Applications in work and energy calculations",
+      "Component-wise calculation method"
+    ]
+  },
+  "electrostatics.html": {
+    "title": "Electrostatics - Coulomb's Law",
+    "learn": [
+      "Coulomb's Law: force between charged particles",
+      "How distance affects electric force (inverse square law)",
+      "Like charges repel, opposite charges attract",
+      "Electric field concept and visualization",
+      "Superposition principle for multiple charges",
+      "Comparing electric force to gravitational force"
+    ]
+  },
+  "equilibrium.html": {
+    "title": "Forces in Equilibrium",
+    "learn": [
+      "Conditions for static equilibrium",
+      "Net force must equal zero",
+      "Resolving forces into components",
+      "Free body diagrams and force analysis",
+      "Tension in strings and cables",
+      "Real-world applications: bridges, cranes, and structures"
+    ]
+  },
+  "gravitation.html": {
+    "title": "Universal Gravitation",
+    "learn": [
+      "Newton's Law of Universal Gravitation",
+      "How gravitational force depends on mass and distance",
+      "Inverse square law for gravity",
+      "Gravitational field strength and acceleration due to gravity",
+      "Why astronauts float in orbit (free fall)",
+      "Relationship between weight and mass"
+    ]
+  },
+  "kinematics-accelerated.html": {
+    "title": "Accelerated Motion",
+    "learn": [
+      "Understanding acceleration and its effects",
+      "Velocity-time and position-time relationships",
+      "How constant acceleration changes motion",
+      "Graphical interpretation of accelerated motion",
+      "Real-world examples: cars, elevators, and falling objects",
+      "Distinguishing speed from velocity in accelerated motion"
+    ]
+  },
+  "kinematics-uniform.html": {
+    "title": "Uniform Motion",
+    "learn": [
+      "Constant velocity and uniform motion",
+      "Distance, displacement, speed, and velocity",
+      "Position-time graphs and their interpretation",
+      "Calculating average speed and velocity",
+      "Relative motion between objects",
+      "Real-world examples: cars on highway, trains, and planes"
+    ]
+  },
+  "kinematics-variable.html": {
+    "title": "Variable Acceleration",
+    "learn": [
+      "Motion with changing acceleration",
+      "Introduction to calculus in kinematics",
+      "Position, velocity, and acceleration functions",
+      "Finding velocity from acceleration function",
+      "Finding position from velocity function",
+      "Real-world examples: rockets and roller coasters"
+    ]
+  },
+  "projectile-game.html": {
+    "title": "Projectile Game",
+    "learn": [
+      "Interactive projectile motion simulation",
+      "How angle and velocity affect projectile path",
+      "Predicting where the projectile will land",
+      "Effect of gravity on projectile trajectory",
+      "Trial and error to hit a target",
+      "Understanding the parabolic path of projectiles"
+    ]
+  },
+  "projectile-motion-2d.html": {
+    "title": "2D Projectile Motion",
+    "learn": [
+      "Breaking projectile motion into horizontal and vertical components",
+      "Horizontal motion: constant velocity",
+      "Vertical motion: constant acceleration due to gravity",
+      "Independence of horizontal and vertical motions",
+      "Calculating range, height, and time of flight",
+      "Parabolic trajectory and its mathematical description"
+    ]
+  },
+  "projectile-motion.html": {
+    "title": "Projectile Motion",
+    "learn": [
+      "Understanding projectile motion and trajectory",
+      "How launch angle affects distance and height",
+      "The role of initial velocity in projectile motion",
+      "Gravity's effect on projectile path",
+      "Calculating range and maximum height",
+      "Optimal launch angle for maximum range (45 degrees)"
+    ]
+  },
+  "projectile-target.html": {
+    "title": "Projectile Target Practice",
+    "learn": [
+      "Aiming a projectile to hit a specific target",
+      "How angle and velocity determine landing position",
+      "Adjusting parameters to improve accuracy",
+      "Understanding the relationship between angle and range",
+      "Effect of initial height on projectile motion",
+      "Problem-solving through simulation and experimentation"
+    ]
+  },
+  "projectile-two.html": {
+    "title": "Two Projectile Comparison",
+    "learn": [
+      "Comparing two projectiles launched simultaneously",
+      "How different angles affect trajectories",
+      "Which projectile lands first and why",
+      "Effect of different initial velocities",
+      "Comparing range and maximum height",
+      "Understanding symmetry in projectile motion"
+    ]
+  },
+  "projectile-wall.html": {
+    "title": "Projectile Over Wall",
+    "learn": [
+      "Calculating if projectile clears an obstacle",
+      "Minimum velocity needed to clear a wall",
+      "Effect of launch angle on clearing obstacles",
+      "Finding the trajectory that just grazes the top",
+      "Real-world applications: artillery and sports",
+      "Understanding clearance and safety margins"
+    ]
+  },
+  "relative-velocity-2d.html": {
+    "title": "Relative Velocity in 2D",
+    "learn": [
+      "Understanding relative velocity in two dimensions",
+      "How to calculate velocity of one object from another's frame",
+      "Vector subtraction for relative velocity",
+      "River crossing problems and boat navigation",
+      "Wind and airplane velocity problems",
+      "Visualizing relative motion with vector diagrams"
+    ]
+  },
+  "relative-velocity-same-dimension.html": {
+    "title": "Relative Velocity - Same Dimension",
+    "learn": [
+      "Relative velocity in one dimension",
+      "Objects moving in same direction",
+      "Objects moving in opposite directions",
+      "Calculating closing speed and separation speed",
+      "Real-world examples: cars on highway, trains",
+      "Understanding reference frames"
+    ]
+  },
+  "scalar-multiplication.html": {
+    "title": "Scalar Multiplication of Vectors",
+    "learn": [
+      "What is scalar multiplication of vectors",
+      "How multiplying by a positive scalar changes magnitude",
+      "Effect of negative scalars on direction",
+      "Scaling vectors for real-world applications",
+      "Relationship between scalar multiplication and vector addition",
+      "Visualizing scaled vectors"
+    ]
+  },
+  "simple-harmonic-motion.html": {
+    "title": "Simple Harmonic Motion",
+    "learn": [
+      "Understanding oscillatory motion",
+      "Spring-mass system and Hooke's Law",
+      "Period, frequency, and amplitude",
+      "Restoring force and equilibrium position",
+      "Energy transformation in SHM",
+      "Real-world examples: pendulums, guitar strings, and springs"
+    ]
+  },
+  "vector-addition-3d.html": {
+    "title": "Vector Addition in 3D",
+    "learn": [
+      "Adding vectors in three dimensions",
+      "Component-wise addition in 3D space",
+      "Finding resultant vector magnitude and direction",
+      "Visualizing 3D vector addition",
+      "Applications in navigation and physics",
+      "Extending 2D concepts to 3D"
+    ]
+  },
+  "vector-addition-parallelogram.html": {
+    "title": "Vector Addition - Parallelogram Method",
+    "learn": [
+      "Parallelogram rule for vector addition",
+      "Geometric interpretation of adding vectors",
+      "Finding resultant vector using parallelogram",
+      "Why the diagonal represents the sum",
+      "Applications in force analysis",
+      "Relationship to triangle method"
+    ]
+  },
+  "vector-addition-triangle.html": {
+    "title": "Vector Addition - Triangle Method",
+    "learn": [
+      "Triangle rule for vector addition",
+      "Head-to-tail method of adding vectors",
+      "Finding resultant vector using triangle",
+      "Order doesn't matter (commutative property)",
+      "Visualizing vector sums geometrically",
+      "Applications in navigation and physics"
+    ]
+  },
+  "vector-resolution-2d.html": {
+    "title": "Vector Resolution in 2D",
+    "learn": [
+      "Breaking a vector into x and y components",
+      "Using trigonometry to find components",
+      "Reconstructing vector from components",
+      "Why resolution is useful in physics",
+      "Applications in force analysis and projectile motion",
+      "Relationship between magnitude, angle, and components"
+    ]
+  },
+  "vector-resolution-3d.html": {
+    "title": "Vector Resolution in 3D",
+    "learn": [
+      "Breaking a vector into x, y, and z components",
+      "Direction cosines in 3D space",
+      "Unit vector notation for components",
+      "Reconstructing vector from 3D components",
+      "Applications in engineering and physics",
+      "Extending 2D resolution to 3D"
+    ]
+  },
+  "vector-subtraction.html": {
+    "title": "Vector Subtraction",
+    "learn": [
+      "Subtracting vectors: adding the negative",
+      "Geometric interpretation of vector subtraction",
+      "Finding difference between two vectors",
+      "Relationship to relative velocity",
+      "Component-wise subtraction method",
+      "Applications in physics and engineering"
+    ]
+  },
+  "vertical-motion.html": {
+    "title": "Vertical Motion",
+    "learn": [
+      "Objects moving straight up and down",
+      "Effect of gravity on vertical motion",
+      "Time to reach maximum height",
+      "Velocity at the top of the trajectory",
+      "Time of flight for upward and downward motion",
+      "Real-world examples: throwing a ball, elevator motion"
+    ]
+  },
+  "platform-coin-sim.html": {
+    "title": "Platform & Coin Simulator",
+    "learn": [
+      "Relative motion in accelerating frames",
+      "How platform acceleration affects coin motion",
+      "Initial velocity effect on coin trajectory",
+      "Coin thrown up, down, or released",
+      "Relative acceleration = g + a",
+      "Coin position = ut + ½(g+a)t²",
+      "Upward platform accel makes coin hit faster",
+      "Downward platform accel makes coin hit slower",
+      "Positive initial velocity throws coin up",
+      "Negative initial velocity throws coin down",
+      "Zero acceleration = normal gravity case",
+      "Real-world: elevator, rocket, free fall"
+    ]
+  },
+  "river-man-problem.html": {
+    "title": "River Man Problem",
+    "learn": [
+      "Relative velocity in two dimensions",
+      "Man crossing a flowing river",
+      "River velocity affects downstream drift",
+      "Man's velocity components: vₓ = vₘ cos θ, vᵧ = vₘ sin θ",
+      "Resultant velocity: v⃗ = √(vₓ² + vᵧ²)",
+      "Time to cross: t = d / vᵧ (depends only on perpendicular component)",
+      "Drift distance: D = (vᵣ + vₘ cos θ) × t",
+      "Shortest time path: θ = 90° (straight across)",
+      "Shortest path: aim upstream to cancel drift",
+      "Angle for shortest path: cos θ = -vᵣ/vₘ",
+      "Real-world: swimming across river, boat crossing stream"
+    ]
+  }
+}

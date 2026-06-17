@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Structure - Pankaj Classes</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .shell-legend {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+            margin-top: 0.5rem; font-size: 0.8rem;
+        }
+        .shell-legend-item { display: flex; align-items: center; gap: 6px; }
+        .shell-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .navbar-sim {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-sim .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .navbar-sim .site-logo {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3));
+        }
+        .navbar-sim .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .navbar-sim .logo-text h1 {
+            font-size: 1.1rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--physics-color), var(--primary), var(--chemistry-color), var(--maths-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .navbar-sim .nav-center {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar-sim .nav-center h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #cccccc, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .navbar-sim .back-btn {
+            margin: 0;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .sim-page { padding: 0; height: calc(100vh - 70px); display: flex; flex-direction: column; }
+        .sim-container { display: flex; flex: 1; gap: 0; overflow: hidden; }
+        .sim-container > div:first-child { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .canvas-wrapper { flex: 1; margin: 0.5rem; margin-bottom: 0.3rem; border-radius: var(--radius); overflow: hidden; }
+        .canvas-wrapper canvas { width: 100%; height: 100%; display: block; }
+        .controls-panel { width: 260px; max-height: none; overflow-y: auto; margin: 0.5rem 0.5rem 0.5rem 0.3rem; padding: 0.8rem; border-radius: var(--radius); }
+        .controls-panel h3 { margin-bottom: 1rem; font-size: 1rem; }
+        .control-group { margin-bottom: 1rem; }
+        .control-group label { font-size: 0.8rem; }
+        .control-group input[type="range"] { height: 4px; }
+        .control-group input[type="range"]::-webkit-slider-thumb { width: 14px; height: 14px; }
+        .info-box { font-size: 0.75rem; margin-top: 1rem; padding: 0.7rem; background: rgba(255,255,255,0.03); border-radius: 6px; }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-sim">
+            <img src="../assets/logo.png" alt="Logo" class="site-logo">
+            <div class="logo-text"><h1>Pankaj Classes</h1></div>
+            <div class="nav-center"><h1>Atomic Structure</h1></div>
+            <select class="sim-dropdown" id="simDropdown" onchange="window.location.href=this.value">
+                <option value="atomic-structure.html">Atomic Structure</option>
+                <option value="spinning-electron.html">Spinning of Electron</option>
+                <option value="radial-wave-function.html">Radial Wave Function</option>
+                <option value="orbital-shapes.html">Orbital Shapes</option>
+            </select>
+            <button class="back-btn" onclick="window.location.href='../index.html#chemistry'">Back to Chemistry</button>
+        </nav>
+    </header>
+    <main class="sim-page">
+        <div class="sim-container">
+            <div>
+                <div class="canvas-wrapper"><canvas id="simCanvas"></canvas></div>
+            </div>
+            <div class="controls-panel">
+                <h3>Element Selector</h3>
+                <div class="control-group"><label>Atomic Number (Z): <span class="value" id="zVal">6</span></label><input type="range" id="zSlider" min="1" max="54" value="6" step="1"></div>
+                <div class="control-group"><label>Mass Number (A): <span class="value" id="aVal">12</span></label><input type="range" id="aSlider" min="6" max="200" value="12" step="1"></div>
+                <div class="control-group"><label>Custom Electrons: <span class="value" id="eVal">auto</span></label>
+                    <select id="electronMode" style="width:100%;padding:0.5rem;background:var(--border-color);color:#fff;border:none;border-radius:6px;">
+                        <option value="auto">Auto (Neutral Atom)</option>
+                        <option value="custom">Custom (Ion)</option>
+                    </select>
+                </div>
+                <div class="control-group" id="customElectronGroup" style="display:none;"><label>Electron Count: <span class="value" id="customEVal">6</span></label><input type="range" id="customESlider" min="0" max="54" value="6" step="1"></div>
+                <div class="control-group"><label>Show Nucleus Detail: <input type="checkbox" id="showNucleus" checked></label></div>
+                <div class="control-group"><label>Show Labels: <input type="checkbox" id="showLabels" checked></label></div>
+                <div class="sim-buttons"><button class="sim-btn primary" id="resetBtn">Reset to Neutral</button></div>
+                <div class="shell-legend">
+                    <div class="shell-legend-item"><div class="shell-dot" style="background:#ff6b6b;"></div><span>K shell (n=1)</span></div>
+                    <div class="shell-legend-item"><div class="shell-dot" style="background:#74b9ff;"></div><span>L shell (n=2)</span></div>
+                    <div class="shell-legend-item"><div class="shell-dot" style="background:#fdcb6e;"></div><span>M shell (n=3)</span></div>
+                    <div class="shell-legend-item"><div class="shell-dot" style="background:#00b894;"></div><span>N shell (n=4)</span></div>
+                    <div class="shell-legend-item"><div class="shell-dot" style="background:#e17055;"></div><span>O shell (n=5)</span></div>
+                    <div class="shell-legend-item"><div class="shell-dot" style="background:#6c5ce7;"></div><span>P shell (n=6)</span></div>
+                </div>
+                <div class="info-box">
+                    <strong>Shell Capacities:</strong><br>
+                    K: 2 | L: 8 | M: 18 | N: 32<br>
+                    Valence electrons determine chemical properties.
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/obfuscated/chemistry/atomic-structure-inline.js"></script>
+    <script src="../js/obfuscated/chemistry/atomic-structure-inline.js"></script>
+            </body>
+</html>

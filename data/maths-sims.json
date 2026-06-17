@@ -1,0 +1,68 @@
+{
+  "calculus-derivatives.html": {
+    "title": "Calculus - Derivatives",
+    "learn": [
+      "What is a derivative: rate of change",
+      "Power rule for differentiation",
+      "Derivative as slope of tangent line",
+      "Product rule and quotient rule",
+      "Chain rule for composite functions",
+      "Real-world applications: velocity, acceleration, and optimization"
+    ]
+  },
+  "calculus-integrals.html": {
+    "title": "Calculus - Integrals",
+    "learn": [
+      "What is an integral: area under curve",
+      "Definite vs indefinite integrals",
+      "Power rule for integration",
+      "Relationship between derivatives and integrals",
+      "Fundamental Theorem of Calculus",
+      "Applications: area, volume, and accumulation"
+    ]
+  },
+  "matrices.html": {
+    "title": "Matrices",
+    "learn": [
+      "What are matrices and their notation",
+      "Matrix addition and subtraction",
+      "Matrix multiplication",
+      "Determinant and its calculation",
+      "Inverse of a matrix",
+      "Applications in solving systems of equations"
+    ]
+  },
+  "probability.html": {
+    "title": "Probability",
+    "learn": [
+      "Basic probability concepts",
+      "Sample space and events",
+      "Calculating probability of events",
+      "Independent and dependent events",
+      "Conditional probability",
+      "Real-world applications: games, statistics, and predictions"
+    ]
+  },
+  "quadratic-function.html": {
+    "title": "Quadratic Functions",
+    "learn": [
+      "Standard form of quadratic equations",
+      "Graphing parabolas",
+      "Vertex and axis of symmetry",
+      "Finding roots using factoring and quadratic formula",
+      "Maximum and minimum values",
+      "Real-world applications: projectile motion and optimization"
+    ]
+  },
+  "trigonometry.html": {
+    "title": "Trigonometry",
+    "learn": [
+      "Sine, cosine, and tangent ratios",
+      "Unit circle and angles",
+      "Trigonometric identities",
+      "Graphing trigonometric functions",
+      "Solving trigonometric equations",
+      "Real-world applications: waves, navigation, and architecture"
+    ]
+  }
+}

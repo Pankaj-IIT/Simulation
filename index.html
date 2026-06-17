@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pankaj Classes - Physics, Chemistry & Maths Simulations for JEE</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Logo" class="site-logo">
+                <div class="logo-text">
+                    <h1>Pankaj Classes</h1>
+                    <p class="tagline">Interactive Simulations for JEE Mains</p>
+                </div>
+            </div>
+            <button class="navbar-back-btn hidden" onclick="goHome()">Back to Subjects</button>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section class="hero-section" id="homeSection">
+            <div class="hero-content">
+                <h2>Explore Science Through Interactive Simulations</h2>
+                <p>Visualize concepts in Physics, Chemistry & Maths. Change variables and see real-time effects!</p>
+            </div>
+
+            <div class="subject-cards">
+                <!-- Physics Card -->
+                <div class="subject-card" data-subject="physics">
+                    <div class="card-icon physics-bg">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="20" stroke="white" stroke-width="3"/>
+                            <ellipse cx="50" cy="50" rx="45" ry="20" stroke="white" stroke-width="2"/>
+                            <ellipse cx="50" cy="50" rx="45" ry="20" stroke="white" stroke-width="2" transform="rotate(60 50 50)"/>
+                            <ellipse cx="50" cy="50" rx="45" ry="20" stroke="white" stroke-width="2" transform="rotate(120 50 50)"/>
+                            <circle cx="50" cy="50" r="5" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3>Physics</h3>
+                    <p>Mechanics, Optics, Thermodynamics & more</p>
+                    <button class="explore-btn" onclick="showSubject('physics')">Explore Simulations</button>
+                </div>
+
+                <!-- Chemistry Card -->
+                <div class="subject-card" data-subject="chemistry">
+                    <div class="card-icon chemistry-bg">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M40 20 L40 50 L25 75 L75 75 L60 50 L60 20 Z" stroke="white" stroke-width="3" fill="none"/>
+                            <line x1="35" y1="20" x2="65" y2="20" stroke="white" stroke-width="3"/>
+                            <path d="M35 60 Q50 55 65 60" stroke="white" stroke-width="2"/>
+                            <circle cx="45" cy="68" r="3" fill="white" opacity="0.7"/>
+                            <circle cx="55" cy="65" r="2" fill="white" opacity="0.5"/>
+                        </svg>
+                    </div>
+                    <h3>Chemistry</h3>
+                    <p>Organic, Inorganic, Physical Chemistry</p>
+                    <button class="explore-btn" onclick="showSubject('chemistry')">Explore Simulations</button>
+                </div>
+
+                <!-- Maths Card -->
+                <div class="subject-card" data-subject="maths">
+                    <div class="card-icon maths-bg">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 80 L50 20 L80 80" stroke="white" stroke-width="3" fill="none"/>
+                            <line x1="30" y1="60" x2="70" y2="60" stroke="white" stroke-width="3"/>
+                            <path d="M25 40 Q50 10 75 40" stroke="white" stroke-width="2.5" fill="none"/>
+                            <circle cx="50" cy="50" r="15" stroke="white" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Mathematics</h3>
+                    <p>Calculus, Algebra, Trigonometry & more</p>
+                    <button class="explore-btn" onclick="showSubject('maths')">Explore Simulations</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Physics Section -->
+        <section class="subject-section hidden" id="physicsSection">
+            <button class="back-btn" onclick="goHome()">Back to Subjects</button>
+            <h2>Physics Simulations</h2>
+            <div class="simulation-grid">
+                <div class="sim-card sim-card-dropdown">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbProjectile" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Projectile Motion</h3>
+                        <p>Launch projectiles with different angles and velocities. Observe trajectory, range, and maximum height.</p>
+                        <span class="sim-tag">Mechanics</span>
+                        <select class="sim-dropdown" onchange="openSimulation(this.value)">
+                            <option value="">What do you want to learn?</option>
+                            <option value="physics/projectile-motion.html">Normal Projectile</option>
+                            <option value="physics/projectile-motion-2d.html">Inclined Plane</option>
+                            <option value="physics/projectile-two.html">Two Projectiles</option>
+                            <option value="physics/projectile-target.html">Target Practice</option>
+                            <option value="physics/projectile-wall.html">Wall Collision</option>
+                            <option value="physics/projectile-game.html">Projectile Game</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="sim-card" onclick="openSimulation('physics/circular-motion.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbCircular" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Circular Motion</h3>
+                        <p>Visualize uniform and non-uniform circular motion. Study centripetal acceleration and angular velocity.</p>
+                        <span class="sim-tag">Mechanics</span>
+                    </div>
+                </div>
+
+                <div class="sim-card" onclick="openSimulation('physics/simple-harmonic-motion.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbSHM" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Simple Harmonic Motion</h3>
+                        <p>Explore spring-mass systems and pendulums. Change amplitude, frequency, and damping.</p>
+                        <span class="sim-tag">Oscillations</span>
+                    </div>
+                </div>
+
+                <div class="sim-card" onclick="openSimulation('physics/electrostatics.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbElectrostatics" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Electrostatics</h3>
+                        <p>Visualize electric field lines and equipotential surfaces around charged particles.</p>
+                        <span class="sim-tag">Electrostatics</span>
+                    </div>
+                </div>
+
+                <div class="sim-card sim-card-dropdown">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbKinematics" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Kinematics</h3>
+                        <p>Uniform motion, uniformly accelerated motion & variable acceleration with live graphs</p>
+                        <span class="sim-tag">Mechanics</span>
+                        <select class="sim-dropdown" onchange="openSimulation(this.value)">
+                            <option value="">What do you want to learn?</option>
+                            <option value="physics/kinematics-uniform.html">Uniform Motion</option>
+                            <option value="physics/kinematics-accelerated.html">Uniformly Accelerated Motion</option>
+                            <option value="physics/kinematics-variable.html">Variable Acceleration Motion</option>
+                            <option value="physics/relative-velocity-same-dimension.html">Relative Velocity - Same Dimension</option>
+                            <option value="physics/relative-velocity-2d.html">Relative Velocity - 2D</option>
+                            <option value="physics/vertical-motion.html">Vertical Motion</option>
+                            <option value="physics/river-man-problem.html">River Man Problem</option>
+                            <option value="physics/platform-coin-sim.html">Platform & Coin Simulator</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="sim-card" onclick="openSimulation('physics/gravitation.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbGravitation" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Gravitation</h3>
+                        <p>Simulate planetary orbits and gravitational interactions between bodies.</p>
+                        <span class="sim-tag">Mechanics</span>
+                    </div>
+                </div>
+
+                <div class="sim-card sim-card-dropdown">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbVectorAdd" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Vectors</h3>
+                        <p>Vector addition, resolution, dot/cross product, relative velocity & more</p>
+                        <span class="sim-tag">Vectors</span>
+                        <select class="sim-dropdown" onchange="openSimulation(this.value)">
+                            <option value="">What do you want to learn?</option>
+                            <option value="physics/vector-addition-triangle.html">Triangle Law</option>
+                            <option value="physics/scalar-multiplication.html">Scalar Multiplication</option>
+                            <option value="physics/vector-addition-parallelogram.html">Parallelogram Law</option>
+                            <option value="physics/vector-addition-polygon.html">Polygon Law</option>
+                            <option value="physics/vector-resolution-2d.html">2D Resolution</option>
+                            <option value="physics/vector-resolution-3d.html">3D Resolution</option>
+                            <option value="physics/dot-product.html">Dot Product</option>
+                            <option value="physics/cross-product.html">Cross Product</option>
+                            <option value="physics/vector-addition-3d.html">3D Vector Addition</option>
+                            <option value="physics/vector-subtraction.html">Vector Subtraction</option>
+                            <option value="physics/equilibrium.html">Force Equilibrium</option>
+                            <option value="physics/arjuns-arrow.html">🏹 Arjun's Arrow Game</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chemistry Section -->
+        <section class="subject-section hidden" id="chemistrySection">
+            <button class="back-btn" onclick="goHome()">Back to Subjects</button>
+            <h2>Chemistry Simulations</h2>
+            <div class="simulation-grid">
+                <div class="sim-card inactive" onclick="openSimulation('chemistry/periodic-trends.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbPeriodic" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Periodic Trends</h3>
+                        <p>Visualize atomic radius, ionization energy, and electronegativity trends across the periodic table.</p>
+                        <span class="sim-tag">Inorganic</span>
+                    </div>
+                </div>
+
+                <div class="sim-card inactive" onclick="openSimulation('chemistry/chemical-equilibrium.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbEquilibrium" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Chemical Equilibrium</h3>
+                        <p>Study Le Chatelier's principle. Change concentration, temperature and pressure to see equilibrium shifts.</p>
+                        <span class="sim-tag">Physical</span>
+                    </div>
+                </div>
+
+                <div class="sim-card inactive" onclick="openSimulation('chemistry/organic-reactions.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbOrganic" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Organic Reaction Mechanisms</h3>
+                        <p>Visualize electron movement in organic reactions. SN1, SN2, E1, E2 mechanisms.</p>
+                        <span class="sim-tag">Organic</span>
+                    </div>
+                </div>
+
+                <div class="sim-card inactive" onclick="openSimulation('chemistry/gas-laws.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbGasLaws" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Gas Laws</h3>
+                        <p>Interactive simulation of Boyle's, Charles's, and Ideal Gas Law. Change P, V, T dynamically.</p>
+                        <span class="sim-tag">Physical</span>
+                    </div>
+                </div>
+
+                <div class="sim-card inactive" onclick="openSimulation('chemistry/acid-base.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbAcidBase" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Acid-Base Chemistry</h3>
+                        <p>Titration curves, pH calculations, and buffer solutions visualization.</p>
+                        <span class="sim-tag">Physical</span>
+                    </div>
+                </div>
+
+                <div class="sim-card inactive" onclick="openSimulation('chemistry/hybridization.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbHybridization" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Hybridization & Molecular Geometry</h3>
+                        <p>3D visualization of molecular orbitals and geometries. sp, sp2, sp3 hybridization.</p>
+                        <span class="sim-tag">Organic</span>
+                    </div>
+                </div>
+
+                <div class="sim-card" onclick="openSimulation('chemistry/ions.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbIons" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Ion Formation & Ionic Bonding</h3>
+                        <p>Visualize electron transfer, cation/anion formation, and ionic bond creation between metals and non-metals.</p>
+                        <span class="sim-tag">Physical</span>
+                    </div>
+                </div>
+
+                <div class="sim-card sim-card-dropdown">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbAtomic" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Atomic Structure</h3>
+                        <p>Explore atoms, rays, experiments, waves & radiation. Choose a simulation below.</p>
+                        <span class="sim-tag">Inorganic</span>
+                        <select class="sim-dropdown" onchange="openSimulation(this.value)">
+                            <option value="">What do you want to learn?</option>
+                            <option value="chemistry/atomic-structure.html">Atomic Structure (Bohr Model)</option>
+                            <option value="chemistry/electromagnetic-radiation.html">Electromagnetic Radiation</option>
+                            <option value="chemistry/photoelectric-effect.html">Photoelectric Effect</option>
+                            <option value="chemistry/planck-quantum-dual-nature.html">Planck Quantum and Dual Nature</option>
+                            <option value="chemistry/spectrum.html">Spectrum</option>
+                            <option value="chemistry/rydberg-equation.html">Rydberg Equation</option>
+                            <option value="chemistry/zeeman-stark-effect.html">Zeeman and Stark Effect</option>
+                            <option value="chemistry/heisenberg-uncertainty.html">Heisenberg Uncertainty Principle</option>
+                            <option value="chemistry/davisson-germer.html">Davisson Germer Experiment</option>
+                            <option value="chemistry/cathode-rays.html">Cathode Rays & Properties</option>
+                            <option value="chemistry/anode-rays.html">Anode Rays & Properties</option>
+                            <option value="chemistry/millikan-oil-drop.html">Millikan Oil Drop Experiment</option>
+                            <option value="chemistry/rutherford-scattering.html">Rutherford Scattering Experiment</option>
+                            <option value="chemistry/wave-motion.html">Wave Motion Characteristics</option>
+                            <option value="chemistry/blackbody-radiation.html">Blackbody Radiation</option>
+                            <option value="chemistry/spinning-electron.html">Spinning of Electron</option>
+                            <option value="chemistry/radial-wave-function.html">Radial Wave Function</option>
+                            <option value="chemistry/orbital-shapes.html">Orbital Shapes</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Maths Section -->
+        <section class="subject-section hidden" id="mathsSection">
+            <button class="back-btn" onclick="goHome()">Back to Subjects</button>
+            <h2>Mathematics Simulations</h2>
+            <div class="simulation-grid">
+                <div class="sim-card inactive" onclick="openSimulation('maths/quadratic-function.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbQuadratic" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Quadratic Functions</h3>
+                        <p>Interactive parabola explorer. Change a, b, c coefficients and observe graph transformations.</p>
+                        <span class="sim-tag">Algebra</span>
+                    </div>
+                </div>
+
+                <div class="sim-card inactive" onclick="openSimulation('maths/trigonometry.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbTrigonometry" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Trigonometric Functions</h3>
+                        <p>Sine, cosine, tangent waves. Study amplitude, period, phase shift interactively.</p>
+                        <span class="sim-tag">Trigonometry</span>
+                    </div>
+                </div>
+
+                <div class="sim-card" onclick="openSimulation('maths/calculus-derivatives.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbDerivatives" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Derivatives & Slopes</h3>
+                        <p>Visualize derivatives as slopes. Tangent line animation and rate of change.</p>
+                        <span class="sim-tag">Calculus</span>
+                    </div>
+                </div>
+
+                <div class="sim-card" onclick="openSimulation('maths/calculus-integrals.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbIntegrals" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Definite Integrals</h3>
+                        <p>Riemann sums visualization. See how area under curve is calculated with increasing partitions.</p>
+                        <span class="sim-tag">Calculus</span>
+                    </div>
+                </div>
+
+                <div class="sim-card" onclick="openSimulation('maths/matrices.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbMatrices" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Matrix Transformations</h3>
+                        <p>Visualize 2D transformations - rotation, scaling, reflection using matrix operations.</p>
+                        <span class="sim-tag">Linear Algebra</span>
+                    </div>
+                </div>
+
+                <div class="sim-card" onclick="openSimulation('maths/probability.html')">
+                    <div class="sim-thumbnail">
+                        <canvas id="thumbProbability" width="300" height="200"></canvas>
+                    </div>
+                    <div class="sim-info">
+                        <h3>Probability & Statistics</h3>
+                        <p>Normal distribution, binomial distribution. Change parameters and observe distributions.</p>
+                        <span class="sim-tag">Statistics</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Pankaj Classes &copy; 2026 | Plot no 19-20, Gokuldham Near Jumma Pir Phatak, Adipur, Kutch</p>
+        <p style="margin-top: 0.5rem;">Mobile: 9825768044 | Built for JEE Mains Aspirants</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/responsive.js"></script>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

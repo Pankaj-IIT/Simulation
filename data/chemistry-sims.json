@@ -1,0 +1,299 @@
+{
+  "acid-base.html": {
+    "title": "Acid-Base Chemistry",
+    "learn": [
+      "Understanding pH and its scale",
+      "Strong acids vs weak acids",
+      "Strong bases vs weak bases",
+      "How concentration affects pH",
+      "Neutralization reactions",
+      "Acid-base indicators and color changes",
+      "Titration curves and equivalence point"
+    ]
+  },
+  "atomic-structure.html": {
+    "title": "Atomic Structure",
+    "learn": [
+      "Bohr's model postulates and quantization of angular momentum",
+      "Protons, neutrons, and electrons in an atom",
+      "Nucleus and electron shells (Bohr model)",
+      "Electron configuration across shells",
+      "K, L, M, N shell capacities (2, 8, 18, 32)",
+      "Atomic number vs mass number",
+      "Ions: cations and anions",
+      "How electron configuration determines chemical properties",
+      "Angular momentum quantization: $mvr = \\frac{nh}{2\\pi}$ where n = 1, 2, 3, ...",
+      "Frequency of photon: $\\nu = \\frac{\\Delta E}{h} = \\frac{13.6 \\text{ eV}}{h}\\left(\\frac{1}{n_1^2} - \\frac{1}{n_2^2}\\right)$, n₂ > n₁ for emission, n₂ < n₁ for absorption",
+      "Wavelength (Rydberg): $\\frac{1}{\\lambda} = R\\left(\\frac{1}{n_1^2} - \\frac{1}{n_2^2}\\right)$ where R = 1.097 × 10⁷ m⁻¹",
+      "Radius of nth orbit: $r_n = \\frac{n^2h^2}{4\\pi^2mke^2} = n^2 \\times 0.529 \\text{ \\AA} = n^2a_0$",
+      "Velocity in nth orbit: $v_n = \\frac{2\\pi ke^2}{nh} = \\frac{2.18 \\times 10^6}{n} \\text{ m/s}$",
+      "Time period: $T_n = \\frac{2\\pi r_n}{v_n} = \\frac{n^3h^3}{4\\pi^2mk^2e^4}$",
+      "Kinetic energy: $KE = \\frac{ke^2}{2r_n} = \\frac{13.6}{n^2} \\text{ eV}$",
+      "Potential energy: $PE = -\\frac{ke^2}{r_n} = -\\frac{27.2}{n^2} \\text{ eV}$",
+      "Total energy: $E = -\\frac{ke^2}{2r_n} = -\\frac{13.6}{n^2} \\text{ eV}$",
+      "Key relations: $KE = -\\frac{1}{2}PE$, $|E| = KE$, $PE = 2E$"
+    ]
+  },
+  "anode-rays.html": {
+    "title": "Anode Rays & Properties",
+    "learn": [
+      "Discovery of anode rays (canal rays) by Goldstein",
+      "Positive charge of anode rays",
+      "Variable e/m ratio depending on gas",
+      "Difference between cathode and anode rays",
+      "Passage through perforated cathode",
+      "Proton as the lightest positive ion",
+      "How different gases produce different ions"
+    ]
+  },
+  "blackbody-radiation.html": {
+    "title": "Blackbody Radiation",
+    "learn": [
+      "What is a blackbody radiator",
+      "Intensity vs wavelength curves at different temperatures",
+      "Wien's displacement law: λmax × T = 2.898 × 10⁻³ m·K",
+      "Stefan-Boltzmann law: I = σT⁴",
+      "How peak wavelength shifts with temperature",
+      "Color of hot objects: red → yellow → white → blue",
+      "UV, visible, and IR regions of blackbody spectrum",
+      "Classical wave theory predicts infinite energy at short wavelengths",
+      "Planck's quantum hypothesis: E = nhν (energy quantized)",
+      "Planck's law: I(λ,T) = 2hc²/λ⁵ × 1/(e^(hc/λkT) - 1)",
+      "Blackbody radiation proves light has particle nature",
+      "Energy comes in discrete packets (quanta), not continuous waves",
+      "Foundation for quantum mechanics and photon concept"
+    ]
+  },
+  "electromagnetic-radiation.html": {
+    "title": "Electromagnetic Radiation",
+    "learn": [
+      "Nature of electromagnetic waves",
+      "Electric and magnetic fields oscillate perpendicular to each other",
+      "EM waves need no medium - travel in vacuum",
+      "Speed of light: c = 3 × 10⁸ m/s",
+      "Wave equation: c = λν",
+      "Electromagnetic spectrum: radio → microwave → IR → visible → UV → X-ray → gamma",
+      "Energy of photon: E = hν = hc/λ",
+      "Maxwell's prediction and Hertz's confirmation"
+    ]
+  },
+  "photoelectric-effect.html": {
+    "title": "Photoelectric Effect",
+    "learn": [
+      "Emission of electrons when light hits metal surface",
+      "Threshold frequency: ν₀ below which no emission occurs",
+      "Kinetic energy of photoelectrons: KE = hν - φ = h(ν - ν₀)",
+      "Work function: φ = hν₀",
+      "Stopping potential: eV₀ = hν - φ",
+      "Photocurrent proportional to intensity",
+      "Instantaneous emission - no time lag",
+      "Wave theory failure: intensity doesn't affect KE",
+      "Einstein's photon explanation: light as quanta"
+    ]
+  },
+  "planck-quantum-dual-nature.html": {
+    "title": "Planck Quantum and Dual Nature",
+    "learn": [
+      "Planck's quantum hypothesis: E = nhν",
+      "Energy is quantized in multiples of hν",
+      "Planck's constant: h = 6.626 × 10⁻³⁴ J·s",
+      "Photoelectric effect evidence for particle nature",
+      "Diffraction/interference evidence for wave nature",
+      "De Broglie wavelength: λ = h/p = h/mv",
+      "Compton effect: Δλ = (h/mₑc)(1 - cos θ)",
+      "Wave-particle duality: matter and light have both properties",
+      "Einstein's photoelectric equation: hν = φ + ½mv²",
+      "De Broglie relation: λ = h/mv = h/√(2mKE)"
+    ]
+  },
+  "spectrum.html": {
+    "title": "Spectrum",
+    "learn": [
+      "Emission and absorption spectra",
+      "Continuous vs line spectra",
+      "Hydrogen spectral series",
+      "Lyman series (UV): 1/n₁², n₁ = 1",
+      "Balmer series (visible): 1/n₁², n₁ = 2",
+      "Paschen series (IR): n₁ = 3",
+      "Brackett series (IR): n₁ = 4",
+      "Pfund series (IR): n₁ = 5",
+      "Rydberg formula: 1/λ = R(1/n₁² - 1/n₂²)",
+      "Spectral lines correspond to electron transitions"
+    ]
+  },
+  "rydberg-equation.html": {
+    "title": "Rydberg Equation",
+    "learn": [
+      "Rydberg formula for hydrogen spectrum",
+      "1/λ = R(1/n₁² - 1/n₂²)",
+      "Rydberg constant: R = 1.097 × 10⁷ m⁻¹",
+      "n₁ < n₂ for emission, n₁ > n₂ for absorption",
+      "Lyman series: n₁ = 1, n₂ = 2,3,4,...",
+      "Balmer series: n₁ = 2, n₂ = 3,4,5,...",
+      "Paschen series: n₁ = 3, n₂ = 4,5,6,...",
+      "Limit of series: when n₂ → ∞, 1/λ = R/n₁²",
+      "Energy of photon: E = hc/λ = 13.6(1/n₁² - 1/n₂²) eV",
+      "Connection to Bohr model energy levels"
+    ]
+  },
+  "zeeman-stark-effect.html": {
+    "title": "Zeeman and Stark Effect",
+    "learn": [
+      "Zeeman effect: splitting of spectral lines in magnetic field",
+      "Normal Zeeman effect: triplet splitting",
+      "Anomalous Zeeman effect: more complex splitting",
+      "Energy shift: ΔE = μB·B = mℓ·(eℏ/2m)·B",
+      "Magnetic quantum number: mℓ = -ℓ, -(ℓ-1), ..., ℓ",
+      "Stark effect: splitting in electric field",
+      "Electric field causes energy level splitting",
+      "Both effects prove quantization of angular momentum",
+      "Applications in astronomy and plasma physics"
+    ]
+  },
+  "heisenberg-uncertainty.html": {
+    "title": "Heisenberg Uncertainty Principle",
+    "learn": [
+      "Position-momentum uncertainty: Δx·Δp ≥ ℏ/2",
+      "Energy-time uncertainty: ΔE·Δt ≥ ℏ/2",
+      "Reduced Planck constant: ℏ = h/2π = 1.055 × 10⁻³⁴ J·s",
+      "Cannot simultaneously know exact position and momentum",
+      "Not a measurement limitation - fundamental property",
+      "Wave packet interpretation: narrow wave packet = precise position but uncertain wavelength",
+      "Application: why electrons don't collapse into nucleus",
+      "Application: virtual particles and quantum fluctuations",
+      "Δx·Δ(mv) ≥ ℏ/2, so Δx·Δv ≥ ℏ/2m"
+    ]
+  },
+  "davisson-germer.html": {
+    "title": "Davisson Germer Experiment",
+    "learn": [
+      "Experimental confirmation of de Broglie hypothesis",
+      "Electron diffraction by nickel crystal",
+      "Bragg's Law: nλ = 2d sin θ",
+      "De Broglie wavelength: λ = h/mv = h/√(2meV)",
+      "Combined: λ = 1.227/√V nm (V in volts)",
+      "Accelerating voltage determines electron wavelength",
+      "Diffraction peaks at specific angles",
+      "Proves wave nature of matter",
+      "Critical angle depends on crystal spacing d",
+      "Nobel Prize 1937: Davisson and Thomson"
+    ]
+  },
+  "cathode-rays.html": {
+    "title": "Cathode Rays & Properties",
+    "learn": [
+      "Discovery of cathode rays in discharge tubes",
+      "Travel in straight lines (shadow formation)",
+      "Negative charge - deflection by electric field",
+      "Deflection by magnetic field",
+      "Kinetic energy and ability to rotate paddle wheel",
+      "Fluorescence on hitting glass or zinc sulfide",
+      "Ionization of gas molecules"
+    ]
+  },
+  "millikan-oil-drop.html": {
+    "title": "Millikan Oil Drop Experiment",
+    "learn": [
+      "Principle of balancing gravitational and electric forces",
+      "Formula: qE = mg for balanced oil drop",
+      "Measurement of elementary charge e = 1.6 × 10⁻¹⁹ C",
+      "Quantization of charge: q = ne",
+      "How oil drop mass is determined",
+      "Effect of Brownian motion on measurements",
+      "Significance in discovering the electron charge"
+    ]
+  },
+  "rutherford-scattering.html": {
+    "title": "Rutherford Scattering Experiment",
+    "learn": [
+      "Alpha particle scattering by thin gold foil",
+      "Most particles pass straight through - atom is mostly empty",
+      "Some deflected at small angles - positive charge in center",
+      "Very few bounce back - small dense nucleus",
+      "Impact parameter and scattering angle relationship",
+      "Nuclear model of the atom",
+      "Limitations of Rutherford's model"
+    ]
+  },
+  "wave-motion.html": {
+    "title": "Wave Motion Characteristics",
+    "learn": [
+      "Wavelength (λ) - distance between consecutive crests",
+      "Frequency (f) - number of cycles per second",
+      "Amplitude (A) - maximum displacement from equilibrium",
+      "Wave velocity (v) - v = f × λ",
+      "Time period (T) - T = 1/f",
+      "Wave number (k) - k = 2π/λ",
+      "Transverse vs longitudinal waves",
+      "Compression and rarefaction in longitudinal waves",
+      "Damping effect on wave amplitude"
+    ]
+  },
+  "chemical-equilibrium.html": {
+    "title": "Chemical Equilibrium",
+    "learn": [
+      "What is chemical equilibrium",
+      "Forward and reverse reaction rates",
+      "Dynamic equilibrium concept",
+      "Le Chatelier's Principle",
+      "How concentration changes affect equilibrium",
+      "Effect of temperature on equilibrium",
+      "Calculating equilibrium constant (K)"
+    ]
+  },
+  "gas-laws.html": {
+    "title": "Gas Laws",
+    "learn": [
+      "Boyle's Law: pressure-volume relationship",
+      "Charles's Law: volume-temperature relationship",
+      "Gay-Lussac's Law: pressure-temperature relationship",
+      "Ideal Gas Law: PV = nRT",
+      "How gas particles behave under different conditions",
+      "Real-world applications: tires, balloons, and engines"
+    ]
+  },
+  "hybridization.html": {
+    "title": "Orbital Hybridization",
+    "learn": [
+      "What is orbital hybridization",
+      "sp, sp2, and sp3 hybridization",
+      "How hybridization affects molecular geometry",
+      "Relationship between hybridization and bond angles",
+      "Sigma and pi bonds in hybridized orbitals",
+      "Real-world examples: methane, ethene, and ethyne"
+    ]
+  },
+  "ions.html": {
+    "title": "Ions and Ionic Bonding",
+    "learn": [
+      "What are cations and anions",
+      "How atoms gain or lose electrons",
+      "Ionic bonding and crystal structures",
+      "Naming ionic compounds",
+      "Properties of ionic compounds",
+      "Electrovalency and charge balance"
+    ]
+  },
+  "organic-reactions.html": {
+    "title": "Organic Reactions",
+    "learn": [
+      "Types of organic reactions",
+      "Substitution reactions",
+      "Addition reactions",
+      "Elimination reactions",
+      "Functional groups and their reactivity",
+      "Mechanism of organic reactions"
+    ]
+  },
+  "periodic-trends.html": {
+    "title": "Periodic Trends",
+    "learn": [
+      "Atomic radius trends across periods and groups",
+      "Ionization energy and its trends",
+      "Electronegativity and its significance",
+      "Metallic and non-metallic character",
+      "Why trends exist: nuclear charge and shielding",
+      "Predicting properties from periodic table position"
+    ]
+  }
+}

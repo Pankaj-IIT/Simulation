@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relative Velocity - Kinematics - Pankaj Classes</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .navbar-sim {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-sim .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .navbar-sim .site-logo {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3));
+        }
+        .navbar-sim .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .navbar-sim .logo-text h1 {
+            font-size: 1.1rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--physics-color), var(--primary), var(--chemistry-color), var(--maths-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .navbar-sim .nav-center {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar-sim .nav-center h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #cccccc, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .navbar-sim .back-btn {
+            margin: 0;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .sim-page {
+            padding: 0;
+            height: calc(100vh - 70px);
+            display: flex;
+            flex-direction: column;
+        }
+        .sim-container {
+            display: flex;
+            flex: 1;
+            gap: 0;
+            overflow: hidden;
+        }
+        .sim-container > div:first-child {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .canvas-wrapper {
+            flex: 1;
+            margin: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+        }
+        .canvas-wrapper canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .stats-panel {
+            margin: 0 1rem 1rem 1rem;
+            padding: 0.7rem;
+            font-size: 0.8rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+        }
+        .stats-panel .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.2rem 0;
+            font-size: 0.8rem;
+        }
+        .stats-panel .stat-item .label {
+            color: var(--text-secondary);
+        }
+        .stats-panel .stat-item .val {
+            color: var(--physics-color);
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+        .controls-panel {
+            width: 320px;
+            max-height: none;
+            overflow-y: auto;
+            margin: 1rem 1rem 1rem 0.5rem;
+            padding: 1.2rem;
+            border-radius: var(--radius);
+        }
+        .controls-panel h3 {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .particle-heading {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin: 1rem 0 0.5rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .particle-heading.p1 { color: #00b894; }
+        .particle-heading.p2 { color: #e17055; }
+        .control-group {
+            margin-bottom: 0.7rem;
+        }
+        .control-group label {
+            font-size: 0.8rem;
+        }
+        .control-group input[type="range"] {
+            height: 4px;
+        }
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            width: 14px;
+            height: 14px;
+        }
+        .info-box {
+            font-size: 0.75rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .info-box strong {
+            color: var(--text-primary);
+        }
+        .sim-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .sim-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .sim-btn:hover { opacity: 0.85; }
+        .sim-btn.primary { background: var(--primary); color: white; }
+        .sim-btn.secondary { background: var(--border-color); color: var(--text-primary); }
+        .pause-btn {
+            background: #fdcb6e;
+            color: #000000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: opacity 0.3s;
+        }
+        .pause-btn:hover { opacity: 0.85; }
+        .graph-toggles {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .graph-toggles label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+        }
+        .graph-toggles input {
+            accent-color: var(--physics-color);
+        }
+        .hidden { display: none !important; }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-sim">
+            <img src="../assets/logo.png" alt="Logo" class="site-logo">
+
+            <div class="logo-text"><h1>Pankaj Classes</h1></div>
+            <div class="nav-center">
+                <h1>Relative Velocity - Same Dimension</h1>
+            </div>
+            <button class="back-btn" onclick="window.location.href='../index.html#physics'">Back to Physics</button>
+        </nav>
+    </header>
+
+    <main class="sim-page">
+        <div class="sim-container">
+            <div>
+                <div class="canvas-wrapper">
+                    <canvas id="simCanvas" width="800" height="600"></canvas>
+                </div>
+                <div class="stats-panel">
+                    <div class="stat-item">
+                        <span class="label">Time:</span>
+                        <span class="val" id="statTime">0.00 s</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Particle 1 Position:</span>
+                        <span class="val" id="statP1Pos">0.00 m</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Particle 2 Position:</span>
+                        <span class="val" id="statP2Pos">0.00 m</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Relative Velocity (v1 - v2):</span>
+                        <span class="val" id="statRelVel">0.00 m/s</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Distance Between:</span>
+                        <span class="val" id="statDist">0.00 m</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-panel">
+                <h3>Controls</h3>
+
+                <div class="particle-heading p1">Particle 1 (Green)</div>
+
+                <div class="control-group">
+                    <label>Initial Position (m): <span class="value" id="p1PosVal">0</span></label>
+                    <input type="range" id="p1Pos" min="-20" max="20" value="0" step="1">
+                </div>
+                <div class="control-group">
+                    <label>Velocity (m/s): <span class="value" id="p1VelVal">5</span></label>
+                    <input type="range" id="p1Vel" min="-15" max="15" value="5" step="0.5">
+                </div>
+                <div class="control-group">
+                    <label>Acceleration (m/s²): <span class="value" id="p1AccVal">0</span></label>
+                    <input type="range" id="p1Acc" min="-5" max="5" value="0" step="0.5">
+                </div>
+
+                <div class="particle-heading p2">Particle 2 (Orange)</div>
+
+                <div class="control-group">
+                    <label>Initial Position (m): <span class="value" id="p2PosVal">10</span></label>
+                    <input type="range" id="p2Pos" min="-20" max="20" value="10" step="1">
+                </div>
+                <div class="control-group">
+                    <label>Velocity (m/s): <span class="value" id="p2VelVal">-3</span></label>
+                    <input type="range" id="p2Vel" min="-15" max="15" value="-3" step="0.5">
+                </div>
+                <div class="control-group">
+                    <label>Acceleration (m/s²): <span class="value" id="p2AccVal">0</span></label>
+                    <input type="range" id="p2Acc" min="-5" max="5" value="0" step="0.5">
+                </div>
+
+                <div class="graph-toggles">
+                    <label><input type="checkbox" id="showST" checked> s-t graph</label>
+                    <label><input type="checkbox" id="showVT" checked> v-t graph</label>
+                    <label><input type="checkbox" id="showAT"> a-t graph</label>
+                </div>
+
+                <div class="sim-buttons">
+                    <button class="sim-btn primary" id="startBtn">Start</button>
+                    <button class="pause-btn" id="pauseBtn" style="display:none;">Pause</button>
+                    <button class="sim-btn secondary" id="resetBtn">Reset</button>
+                </div>
+
+                <div class="info-box">
+                    <strong>Relative Velocity (Same Dimension):</strong><br>
+                    Particle 1: x1 = x10 + v1t + ½a1t²<br>
+                    Particle 2: x2 = x20 + v2t + ½a2t²<br>
+                    Relative velocity: v_rel = v1 - v2<br>
+                    Distance: d = |x1 - x2|<br>
+                    Both particles move along the same line. Graphs show both particles on the same axes for comparison.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/obfuscated/physics/relative-velocity-same-dimension-inline.js"></script>
+    <script src="../js/obfuscated/physics/relative-velocity-same-dimension-inline.js"></script>
+            </body>
+</html>

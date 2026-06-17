@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertical Motion - Kinematics - Pankaj Classes</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .navbar-sim{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+        .navbar-sim .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            flex-shrink:0;
+        }
+        .navbar-sim .site-logo{
+            height:40px;
+            width:auto;
+            filter:drop-shadow(0 0 6px rgba(168,85,247,0.3));
+        }
+        .navbar-sim .logo-text{
+            display:flex;
+            flex-direction:column;
+            align-items:flex-start;
+        }
+        .navbar-sim .logo-text h1{
+            font-size:1.1rem;
+            margin:0;
+            background:linear-gradient(135deg,var(--physics-color),var(--primary),var(--chemistry-color),var(--maths-color));
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+            font-weight:800;
+            line-height:1.2;
+        }
+        .navbar-sim .nav-center{
+            flex:1;
+            text-align:center;
+            min-width:0;
+        }
+        .navbar-sim .nav-center h1{
+            font-size:1.3rem;
+            margin:0;
+            background:linear-gradient(135deg,#ffffff,#cccccc,#fdcb6e);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+        }
+        .navbar-sim .back-btn{
+            margin:0;
+            padding:0.5rem 1rem;
+            text-align:center;
+            flex-shrink:0;
+        }
+        .fs-btn{
+            margin:0;
+            width:160px;
+            text-align:center;
+            flex-shrink:0;
+            background:var(--primary);
+            color:white;
+            border:none;
+            padding:0.5rem 1rem;
+            border-radius:8px;
+            font-size:0.85rem;
+            font-weight:600;
+            cursor:pointer;
+        }
+        .fs-btn:hover{
+            opacity:0.85;
+        }
+        .sim-page{
+            padding:0;
+            height:calc(100vh - 70px);
+            display:flex;
+            flex-direction:column;
+        }
+        .sim-container{
+            display:flex;
+            flex:1;
+            overflow:hidden;
+        }
+        .sim-container > div:first-child{
+            flex:1;
+            display:flex;
+            flex-direction:column;
+            min-width:0;
+        }
+        .canvas-wrapper{
+            flex:1;
+            margin:1rem;
+            margin-bottom:0.5rem;
+            border-radius:12px;
+            overflow:hidden;
+        }
+        .canvas-wrapper canvas{
+            width:100%;
+            height:100%;
+            display:block;
+        }
+        .stats-panel{
+            margin:0 1rem 1rem 1rem;
+            padding:0.8rem;
+            background:var(--bg-card);
+            border:1px solid var(--border-color);
+            border-radius:10px;
+        }
+        .stat-item{
+            display:flex;
+            justify-content:space-between;
+            padding:0.2rem 0;
+            font-size:0.85rem;
+        }
+        .stat-item .label{
+            color:var(--text-secondary);
+        }
+        .stat-item .val{
+            color:var(--physics-color);
+            font-weight:600;
+            font-family:monospace;
+        }
+        .controls-panel{
+            width:300px;
+            overflow-y:auto;
+            margin:1rem 1rem 1rem 0.5rem;
+            padding:1.2rem;
+            border-radius:12px;
+        }
+        .control-group{
+            margin-bottom:1rem;
+        }
+        .control-group label{
+            font-size:0.85rem;
+        }
+        .sim-buttons{
+            display:flex;
+            gap:0.5rem;
+            margin-top:1rem;
+        }
+        .sim-btn{
+            flex:1;
+            padding:0.6rem;
+            border:none;
+            border-radius:8px;
+            font-size:0.85rem;
+            font-weight:600;
+            cursor:pointer;
+        }
+        .sim-btn.primary{
+            background:var(--primary);
+            color:white;
+        }
+        .sim-btn.secondary{
+            background:var(--border-color);
+            color:var(--text-primary);
+        }
+        .graph-toggles{
+            display:flex;
+            flex-direction:column;
+            gap:0.6rem;
+            margin-top:0.8rem;
+            padding-top:0.8rem;
+            border-top:1px solid var(--border-color);
+            font-size:0.85rem;
+        }
+        .graph-toggles label{
+            display:flex;
+            align-items:center;
+            gap:0.4rem;
+            cursor:pointer;
+        }
+        .graph-toggles input{
+            accent-color:var(--physics-color);
+        }
+        .info-box{
+            font-size:0.78rem;
+            margin-top:1rem;
+            padding:1rem;
+            background:rgba(108,92,231,0.1);
+            border:1px solid rgba(108,92,231,0.3);
+            border-radius:10px;
+            color:var(--text-secondary);
+            line-height:1.6;
+        }
+        .throw-type{
+            display:flex;
+            gap:0.4rem;
+            margin-bottom:1rem;
+        }
+        .throw-type button{
+            flex:1;
+            padding:0.5rem;
+            border:1px solid var(--border-color);
+            border-radius:8px;
+            background:var(--bg-dark);
+            color:var(--text-secondary);
+            font-size:0.8rem;
+            cursor:pointer;
+            transition:all 0.2s;
+        }
+        .throw-type button.active{
+            background:var(--primary);
+            color:white;
+            border-color:var(--primary);
+        }
+        .throw-type button:hover:not(.active){
+            border-color:var(--primary);
+            color:var(--text-primary);
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar navbar-sim">
+        <img src="../assets/logo.png" alt="Logo" class="site-logo">
+
+        <div class="logo-text"><h1>Pankaj Classes</h1></div>
+        <div class="nav-center">
+            <h1>Vertical Motion</h1>
+        </div>
+        <button class="back-btn"
+                onclick="window.location.href='../index.html#physics'">
+            Back to Physics
+        </button>
+    </nav>
+</header>
+
+<main class="sim-page">
+    <div class="sim-container">
+        <div>
+            <div class="canvas-wrapper">
+                <canvas id="simCanvas" width="1000" height="650"></canvas>
+            </div>
+        </div>
+
+        <div class="controls-panel">
+            <h3>Controls</h3>
+
+            <div class="throw-type">
+                <button class="active" data-type="up" id="throwUp">Throw Up</button>
+                <button data-type="down" id="throwDown">Throw Down</button>
+                <button data-type="release" id="throwRelease">Release</button>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Initial Height (h0):
+                    <span id="h0Val">20 m</span>
+                </label>
+                <input type="range" id="initHeight" min="0" max="100" value="20" step="1">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Initial Velocity (u):
+                    <span id="uVal">30 m/s</span>
+                </label>
+                <input type="range" id="initVel" min="0" max="60" value="30" step="1">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Gravity (g):
+                    <span id="gVal">9.8 m/s²</span>
+                </label>
+                <input type="range" id="gravVal" min="1" max="20" value="9.8" step="0.1">
+            </div>
+
+            <div class="stats-panel" style="margin:0 0 1rem 0;">
+                <div class="stat-item">
+                    <span class="label">Time:</span>
+                    <span class="val" id="statTime">0.00 s</span>
+                </div>
+                <div class="stat-item">
+                    <span class="label">Height:</span>
+                    <span class="val" id="statHeight">0.00 m</span>
+                </div>
+                <div class="stat-item">
+                    <span class="label">Velocity:</span>
+                    <span class="val" id="statVel">0.00 m/s</span>
+                </div>
+                <div class="stat-item">
+                    <span class="label">Acceleration:</span>
+                    <span class="val" id="statAcc">-9.80 m/s²</span>
+                </div>
+            </div>
+
+            <div class="graph-toggles">
+                <label><input type="checkbox" id="showST" checked> Height vs Time</label>
+                <label><input type="checkbox" id="showVT" checked> Velocity vs Time</label>
+                <label><input type="checkbox" id="showAT"> Acceleration vs Time</label>
+            </div>
+
+            <div class="sim-buttons">
+                <button class="sim-btn primary" id="startBtn">Start</button>
+                <button class="sim-btn secondary" id="pauseBtn" style="display:none;">Pause</button>
+                <button class="sim-btn secondary" id="resetBtn">Reset</button>
+            </div>
+
+            <div class="info-box">
+                <strong>Vertical Motion under Gravity</strong><br><br>
+                v = u - gt<br>
+                h = h0 + ut - ½gt²<br><br>
+                At max height: v = 0<br><br>
+                Throw Up: u > 0 (upward)<br>
+                Throw Down: u < 0 (downward)<br>
+                Release: u = 0 (drop from rest)
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="../js/obfuscated/physics/vertical-motion-inline.js"></script>
+
+<script src="../js/obfuscated/physics/vertical-motion-inline.js"></script>
+
+            </body>
+</html>

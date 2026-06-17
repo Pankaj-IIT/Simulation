@@ -1,0 +1,15 @@
+{
+  "name": "simulation",
+  "version": "1.0.0",
+  "description": "Simulation Website",
+  "scripts": {
+    "vector-start": "node physics/start.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "javascript-obfuscator": "^5.4.3"
+  }
+}

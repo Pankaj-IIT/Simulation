@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scalar Multiplication - Vector - Pankaj Classes</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .navbar-sim {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-sim .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .navbar-sim .site-logo {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3));
+        }
+        .navbar-sim .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .navbar-sim .logo-text h1 {
+            font-size: 1.1rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--physics-color), var(--primary), var(--chemistry-color), var(--maths-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .navbar-sim .nav-center {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar-sim .nav-center h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #cccccc, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .navbar-sim .back-btn {
+            margin: 0;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .sim-page {
+            padding: 0;
+            height: calc(100vh - 70px);
+            display: flex;
+            flex-direction: column;
+        }
+        .sim-container {
+            display: flex;
+            flex: 1;
+            gap: 0;
+            overflow: hidden;
+        }
+        .sim-container > div:first-child {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .canvas-wrapper {
+            flex: 1;
+            margin: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+        }
+        .canvas-wrapper canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .stats-panel {
+            margin: 0 1rem 1rem 1rem;
+            padding: 0.7rem;
+            font-size: 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+        }
+        .stats-panel .stat-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.5rem 1rem;
+        }
+        .stats-panel .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.15rem 0;
+            font-size: 0.75rem;
+        }
+        .stats-panel .stat-item .label {
+            color: var(--text-secondary);
+        }
+        .stats-panel .stat-item .val {
+            color: var(--physics-color);
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+        .controls-panel {
+            width: 300px;
+            max-height: none;
+            overflow-y: auto;
+            margin: 1rem 1rem 1rem 0.5rem;
+            padding: 1rem;
+            border-radius: var(--radius);
+        }
+        .controls-panel h3 {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+        .particle-heading {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin: 0.8rem 0 0.5rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .particle-heading.p1 { color: #00b894; }
+        .particle-heading.s { color: #74b9ff; }
+        .particle-heading.r { color: #fdcb6e; }
+        .control-group {
+            margin-bottom: 0.7rem;
+        }
+        .control-group label {
+            font-size: 0.8rem;
+        }
+        .control-group input[type="range"] {
+            height: 4px;
+        }
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            width: 14px;
+            height: 14px;
+        }
+        .info-box {
+            font-size: 0.75rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .info-box strong {
+            color: var(--text-primary);
+        }
+        .sim-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .sim-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .sim-btn:hover { opacity: 0.85; }
+        .sim-btn.primary { background: var(--primary); color: white; }
+        .sim-btn.secondary { background: var(--border-color); color: var(--text-primary); }
+        .pause-btn {
+            background: #fdcb6e;
+            color: #000000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: opacity 0.3s;
+        }
+        .pause-btn:hover { opacity: 0.85; }
+        .graph-toggles {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .graph-toggles label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+        }
+        .graph-toggles input {
+            accent-color: var(--physics-color);
+        }
+        #originControls {
+            display: none;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-sim">
+            <img src="../assets/logo.png" alt="Logo" class="site-logo">
+
+            <div class="logo-text"><h1>Pankaj Classes</h1></div>
+            <div class="nav-center">
+                <h1>Scalar Multiplication of Vectors</h1>
+            </div>
+            <button class="back-btn" onclick="window.location.href='../index.html#physics'">Back to Physics</button>
+        </nav>
+    </header>
+
+    <main class="sim-page">
+        <div class="sim-container">
+            <div>
+                <div class="canvas-wrapper">
+                    <canvas id="simCanvas" width="900" height="650"></canvas>
+                </div>
+                <div class="stats-panel">
+                    <div class="stat-row">
+                        <div class="stat-item">
+                            <span class="label">|A|:</span>
+                            <span class="val" id="statA">5.0 m</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">Scalar (k):</span>
+                            <span class="val" id="statK">2.0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">|kA|:</span>
+                            <span class="val" id="statR">10.0 m</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">A dir:</span>
+                            <span class="val" id="statADir">0.0°</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">kA dir:</span>
+                            <span class="val" id="statRDir">0.0°</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">Type:</span>
+                            <span class="val" id="statType">Same direction</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-panel">
+                <h3>Controls</h3>
+
+                <div class="particle-heading p1">Original Vector A (Green)</div>
+
+                <div class="control-group">
+                    <label>Magnitude: <span class="value" id="mAVal">5</span></label>
+                    <input type="range" id="mA" min="0" max="15" value="5" step="0.5">
+                </div>
+                <div class="control-group">
+                    <label>Angle (°): <span class="value" id="aAVal">30</span></label>
+                    <input type="range" id="aA" min="0" max="360" value="30" step="5">
+                </div>
+
+                <div class="particle-heading s">Scalar k (Blue)</div>
+
+                <div class="control-group">
+                    <label>Scalar (k): <span class="value" id="kVal">2</span></label>
+                    <input type="range" id="k" min="-5" max="5" value="2" step="0.5">
+                </div>
+
+                <div class="particle-heading r">Resultant kA (Yellow)</div>
+
+                <div class="graph-toggles">
+                    <label><input type="checkbox" id="showOrigin"> Show origin position</label>
+                </div>
+
+                <div id="originControls">
+                    <div class="particle-heading" style="color: #74b9ff;">Origin Position</div>
+
+                    <div class="control-group">
+                        <label>X offset (px): <span class="value" id="originXVal">150</span></label>
+                        <input type="range" id="originX" min="0" max="400" value="150" step="10">
+                    </div>
+                    <div class="control-group">
+                        <label>Y offset (px): <span class="value" id="originYVal">325</span></label>
+                        <input type="range" id="originY" min="100" max="550" value="325" step="10">
+                    </div>
+                </div>
+
+                <div class="sim-buttons">
+                    <button class="sim-btn primary" id="startBtn">Animate k</button>
+                    <button class="pause-btn" id="pauseBtn" style="display:none;">Pause</button>
+                    <button class="sim-btn secondary" id="resetBtn">Reset</button>
+                </div>
+
+                <div class="info-box">
+                    <strong>Scalar Multiplication:</strong><br><br>
+                    kA = scalar × vector<br><br>
+                    If k > 0: |kA| = k|A|, same direction as A<br>
+                    If k < 0: |kA| = |k||A|, opposite direction<br>
+                    If k = 0: kA = 0 (zero vector)<br><br>
+                    Magnitude scales by |k|, direction flips if k is negative.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/obfuscated/physics/scalar-multiplication-inline.js"></script>
+    <script src="../js/obfuscated/physics/scalar-multiplication-inline.js"></script>
+            </body>
+</html>

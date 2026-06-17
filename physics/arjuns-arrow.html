@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Arjun's Arrow - 3D Vector Game</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.navbar-sim { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; }
+.navbar-sim .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.navbar-sim .site-logo { height: 40px; width: auto; filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3)); }
+.navbar-sim .logo-text { display: flex; flex-direction: column; align-items: flex-start; }
+.navbar-sim .logo-text h1 { font-size: 1.1rem; margin: 0; background: linear-gradient(135deg, #2ecc71, #3498db, #e74c3c, #f39c12); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800; line-height: 1.2; }
+.navbar-sim .nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.navbar-sim .back-btn { margin: 0 0 0 0.5rem; padding: 0.5rem 0.8rem; text-align: left; flex-shrink: 0; }
+.navbar-sim .fullscreen-btn { margin: 0; padding: 0.5rem 0.8rem; text-align: center; flex-shrink: 0; width: auto; flex-grow: 0; }
+.info-btn { font-size: 0.9rem; padding: 0.3rem 0.5rem; width: 35px; max-width: 35px; flex-shrink: 0; }
+.sim-page { padding: 0; height: calc(100vh - 70px); display: flex; flex-direction: column; }
+body{
+    margin:0;
+    background:#050510;
+    overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    color:white;
+}
+
+.container{
+    display:flex;
+    height:calc(100vh - 60px);
+    margin-top:0;
+}
+
+.left{
+    flex:1;
+    position:relative;
+}
+
+canvas{
+    width:100%;
+    height:100%;
+    display:block;
+    background:black;
+}
+
+.panel{
+    width:320px;
+    background:#111122;
+    padding:20px;
+    overflow-y:auto;
+    border-left:1px solid #333;
+}
+
+h2{
+    margin-top:0;
+    color:#2ecc71;
+}
+
+.control{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-size:14px;
+}
+
+input[type=range]{
+    width:100%;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+.shoot{
+    background:#2ecc71;
+    color:white;
+}
+
+.target{
+    background:#3498db;
+    color:white;
+}
+
+.info{
+    margin-top:20px;
+    padding:15px;
+    background:rgba(255,255,255,0.05);
+    border-radius:10px;
+    line-height:1.5;
+    font-size:14px;
+}
+
+.hit{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:60px;
+    font-weight:bold;
+    display:none;
+}
+
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+
+<nav class="navbar-sim">
+    <div class="logo">
+        <img src="../assets/logo.png" alt="Logo" class="site-logo">
+        <div class="logo-text"><h1>Pankaj Classes</h1></div>
+    </div>
+    <div class="nav-right">
+        <button class="back-btn" onclick="window.location.href='../index.html#physics'">Back to Physics</button>
+    </div>
+</nav>
+
+<div class="container">
+
+<div class="left">
+
+<canvas id="canvas" width="1000" height="700"></canvas>
+
+<div class="hit" id="hitText"></div>
+
+</div>
+
+<div class="panel">
+
+<h2>🏹 Arjun's Arrow</h2>
+
+<div class="control">
+<label>Fish X : <span id="fxv">5</span></label>
+<input type="range" id="fx" min="-10" max="10" step="0.5" value="5">
+</div>
+
+<div class="control">
+<label>Fish Y : <span id="fyv">3</span></label>
+<input type="range" id="fy" min="-10" max="10" step="0.5" value="3">
+</div>
+
+<div class="control">
+<label>Fish Z : <span id="fzv">4</span></label>
+<input type="range" id="fz" min="-10" max="10" step="0.5" value="4">
+</div>
+
+<hr>
+
+<div class="control">
+<label>α (alpha) : <span id="av">60°</span></label>
+<input type="range" id="alpha" min="0" max="180" value="60">
+</div>
+
+<div class="control">
+<label>β (beta) : <span id="bv">60°</span></label>
+<input type="range" id="beta" min="0" max="180" value="60">
+</div>
+
+<div class="control">
+<label>γ (gamma) : <span id="gv">60°</span></label>
+<input type="range" id="gamma" min="0" max="180" value="60">
+</div>
+
+<button class="shoot" id="shootBtn">
+🏹 Shoot Arrow
+</button>
+
+<button class="target" id="newBtn">
+🎯 New Target
+</button>
+
+<div class="info">
+
+Rotate view using mouse drag.<br><br>
+
+Yellow vector = aiming direction.<br>
+Red point = fish eye.<br><br>
+
+Adjust α β γ until vector points exactly toward fish eye.
+
+</div>
+
+</div>
+
+</div>
+
+<script src="../js/obfuscated/physics/arjuns-arrow-inline.js"></script>
+    
+    <script src="../js/obfuscated/physics/arjuns-arrow-inline.js"></script>
+            </body>
+</html>

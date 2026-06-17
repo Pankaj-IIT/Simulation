@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anode Rays - Pankaj Classes</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .properties-panel {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm); padding: 1rem; margin-top: 1rem;
+        }
+        .properties-panel h4 { margin: 0 0 0.8rem 0; color: var(--chemistry-color); }
+        .property-item { display: flex; align-items: flex-start; gap: 8px; font-size: 0.85rem; margin-bottom: 0.5rem; }
+        .property-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+        .discharge-tube {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-color);
+            border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem;
+        }
+        .tube-label { font-size: 0.8rem; color: var(--text-secondary); text-align: center; margin-bottom: 0.5rem; }
+        .comparison-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;
+        }
+        .comparison-card {
+            background: rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;
+        }
+        .comparison-card h4 { margin: 0 0 0.5rem 0; font-size: 0.9rem; }
+        .comparison-card.cathode h4 { color: #00b894; }
+        .comparison-card.anode h4 { color: #ff6b6b; }
+        .comparison-card p { font-size: 0.8rem; color: var(--text-secondary); margin: 0.3rem 0; }
+        .navbar-sim {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-sim .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .navbar-sim .site-logo {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3));
+        }
+        .navbar-sim .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .navbar-sim .logo-text h1 {
+            font-size: 1.1rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--physics-color), var(--primary), var(--chemistry-color), var(--maths-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .navbar-sim .nav-center {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar-sim .nav-center h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #cccccc, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .navbar-sim .back-btn {
+            margin: 0;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .sim-page { padding: 0; height: calc(100vh - 70px); display: flex; flex-direction: column; }
+        .sim-container { display: flex; flex: 1; gap: 0; overflow: hidden; }
+        .sim-container > div:first-child { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .canvas-wrapper { flex: 1; margin: 1rem; margin-bottom: 0.5rem; border-radius: var(--radius); overflow: hidden; }
+        .canvas-wrapper canvas { width: 100%; height: 100%; display: block; }
+        .controls-panel { width: 300px; max-height: none; overflow-y: auto; margin: 1rem 1rem 1rem 0.5rem; padding: 1.2rem; border-radius: var(--radius); }
+        .controls-panel h3 { margin-bottom: 1rem; font-size: 1rem; }
+        .control-group { margin-bottom: 1rem; }
+        .control-group label { font-size: 0.8rem; }
+        .control-group input[type="range"] { height: 4px; }
+        .control-group input[type="range"]::-webkit-slider-thumb { width: 14px; height: 14px; }
+        .info-box { font-size: 0.75rem; margin-top: 1rem; padding: 0.7rem; background: rgba(255,255,255,0.03); border-radius: 6px; }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-sim">
+            <img src="../assets/logo.png" alt="Logo" class="site-logo">
+            <div class="logo-text"><h1>Pankaj Classes</h1></div>
+            <div class="nav-center"><h1>Anode Rays & Properties</h1></div>
+            <button class="back-btn" onclick="window.location.href='../index.html#chemistry'">Back to Chemistry</button>
+        </nav>
+    </header>
+    <main class="sim-page">
+        <div class="sim-container">
+            <div>
+                <div class="discharge-tube">
+                    <div class="tube-label">Discharge Tube with Perforated Cathode (Canal Rays)</div>
+                    <div class="canvas-wrapper"><canvas id="simCanvas" width="800" height="300"></canvas></div>
+                </div>
+                <div class="properties-panel">
+                    <h4>Properties of Anode Rays (Canal Rays)</h4>
+                    <div class="property-item"><div class="property-dot" style="background:#ff6b6b;"></div><div><strong>Positive charge:</strong> Deflected toward negative plate in electric field</div></div>
+                    <div class="property-item"><div class="property-dot" style="background:#74b9ff;"></div><div><strong>Massive particles:</strong> Mass depends on gas in tube (same as positive ion)</div></div>
+                    <div class="property-item"><div class="property-dot" style="background:#fdcb6e;"></div><div><strong>Variable e/m ratio:</strong> Depends on the gas used in the tube</div></div>
+                    <div class="property-item"><div class="property-dot" style="background:#00b894;"></div><div><strong>Slow speed:</strong> Much slower than cathode rays (1/100th to 1/1000th)</div></div>
+                    <div class="property-item"><div class="property-dot" style="background:#e17055;"></div><div><strong>Pass through holes:</strong> Pass through perforations (canals) in cathode</div></div>
+                    <div class="property-item"><div class="property-dot" style="background:#6c5ce7;"></div><div><strong>Ionize gas:</strong> Can ionize gas molecules</div></div>
+                    <div class="property-item"><div class="property-dot" style="background:#0984e3;"></div><div><strong>Proton discovery:</strong> For hydrogen gas, rays are protons (H⁺ ions)</div></div>
+                </div>
+                <div class="comparison-grid">
+                    <div class="comparison-card cathode">
+                        <h4>Cathode Rays (e⁻)</h4>
+                        <p>• Negative charge</p>
+                        <p>• Very light (electron mass)</p>
+                        <p>• Constant e/m ratio</p>
+                        <p>• Very high speed</p>
+                        <p>• Produced from gas ionization</p>
+                    </div>
+                    <div class="comparison-card anode">
+                        <h4>Anode Rays (Positive Ions)</h4>
+                        <p>• Positive charge</p>
+                        <p>• Heavy (ion mass)</p>
+                        <p>• Variable e/m ratio</p>
+                        <p>• Low speed</p>
+                        <p>• Pass through cathode holes</p>
+                    </div>
+                </div>
+            </div>
+            <div class="controls-panel">
+                <h3>Tube Controls</h3>
+                <div class="control-group"><label>Voltage (V): <span class="value" id="voltageVal">5000 V</span></label><input type="range" id="voltage" min="1000" max="20000" value="5000" step="500"></div>
+                <div class="control-group"><label>Gas Type: <span class="value" id="gasVal">Hydrogen</span></label>
+                    <select id="gasType" onchange="forceRefresh()" style="width:100%;padding:0.5rem;background:var(--border-color);color:#fff;border:none;border-radius:6px;">
+                        <option value="hydrogen">Hydrogen (H⁺)</option>
+                        <option value="helium">Helium (He⁺)</option>
+                        <option value="oxygen">Oxygen (O₂⁺)</option>
+                        <option value="neon">Neon (Ne⁺)</option>
+                        <option value="argon">Argon (Ar⁺)</option>
+                    </select>
+                </div>
+                <div class="control-group"><label>Electric Field: <span class="value" id="efieldVal">OFF</span></label>
+                    <select id="electricField" onchange="forceRefresh()" style="width:100%;padding:0.5rem;background:var(--border-color);color:#fff;border:none;border-radius:6px;">
+                        <option value="off">OFF</option>
+                        <option value="on">ON</option>
+                    </select>
+                </div>
+                <div class="control-group"><label>Magnetic Field: <span class="value" id="mfieldVal">OFF</span></label>
+                    <select id="magneticField" onchange="forceRefresh()" style="width:100%;padding:0.5rem;background:var(--border-color);color:#fff;border:none;border-radius:6px;">
+                        <option value="off">OFF</option>
+                        <option value="on">ON</option>
+                    </select>
+                </div>
+                <div class="control-group"><label>Ion Mass: <span class="value" id="ionMassVal">1 u</span></label></div>
+                <div class="control-group"><label>Deflection: <span class="value" id="deflectionVal">Large</span></label></div>
+                <div class="sim-buttons"><button class="sim-btn primary" id="resetBtn">Reset</button></div>
+                <div class="info-box">
+                    <strong>Anode Rays (Canal Rays)</strong> discovered by Goldstein (1886). They are positive ions produced when gas molecules lose electrons. The rays pass through holes (canals) in the perforated cathode.
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/obfuscated/chemistry/anode-rays-inline.js"></script>
+    <script src="../js/obfuscated/chemistry/anode-rays-inline.js"></script>
+            </body>
+</html>

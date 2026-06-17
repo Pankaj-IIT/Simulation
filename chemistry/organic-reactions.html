@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organic Reactions - Pankaj Classes</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .stats-panel {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm); padding: 1rem; margin-top: 1rem;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+        }
+        .stat-item { display: flex; justify-content: space-between; font-size: 0.85rem; }
+        .stat-item .label { color: var(--text-secondary); }
+        .stat-item .val { color: var(--chemistry-color); font-weight: 600; font-family: 'Courier New', monospace; }
+        .rxn-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .rxn-tab {
+            padding: 0.5rem 1rem; background: var(--border-color);
+            border: 1px solid transparent; color: var(--text-primary);
+            border-radius: 6px; cursor: pointer; font-size: 0.8rem;
+        }
+        .rxn-tab.active { border-color: var(--chemistry-color); background: rgba(255,255,255,0.1); }
+        .navbar-sim {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-sim .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .navbar-sim .site-logo {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3));
+        }
+        .navbar-sim .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .navbar-sim .logo-text h1 {
+            font-size: 1.1rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--physics-color), var(--primary), var(--chemistry-color), var(--maths-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .navbar-sim .nav-center {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar-sim .nav-center h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #cccccc, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .navbar-sim .back-btn {
+            margin: 0;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .sim-page { padding: 0; height: calc(100vh - 70px); display: flex; flex-direction: column; }
+        .sim-container { display: flex; flex: 1; gap: 0; overflow: hidden; }
+        .sim-container > div:first-child { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .canvas-wrapper { flex: 1; margin: 1rem; margin-bottom: 0.5rem; border-radius: var(--radius); overflow: hidden; }
+        .canvas-wrapper canvas { width: 100%; height: 100%; display: block; }
+        .stats-panel { margin: 0 1rem 1rem 1rem; padding: 0.7rem; font-size: 0.8rem; }
+        .stats-panel .stat-item { padding: 0.2rem 0; }
+        .controls-panel { width: 300px; max-height: none; overflow-y: auto; margin: 1rem 1rem 1rem 0.5rem; padding: 1.2rem; border-radius: var(--radius); }
+        .controls-panel h3 { margin-bottom: 1rem; font-size: 1rem; }
+        .control-group { margin-bottom: 1rem; }
+        .control-group label { font-size: 0.8rem; }
+        .control-group input[type="range"] { height: 4px; }
+        .control-group input[type="range"]::-webkit-slider-thumb { width: 14px; height: 14px; }
+        .info-box { font-size: 0.75rem; margin-top: 1rem; padding: 0.7rem; }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-sim">
+            <img src="../assets/logo.png" alt="Logo" class="site-logo">
+
+            <div class="logo-text"><h1>Pankaj Classes</h1></div>
+            <div class="nav-center"><h1>Organic Reactions</h1></div>
+            <button class="back-btn" onclick="window.location.href='../index.html#chemistry'">Back to Chemistry</button>
+        </nav>
+    </header>
+    <main class="sim-page">
+        <div class="sim-container">
+            <div>
+                <div class="rxn-tabs">
+                    <button class="rxn-tab active" data-rxn="sn2">SN2</button>
+                    <button class="rxn-tab" data-rxn="sn1">SN1</button>
+                    <button class="rxn-tab" data-rxn="e2">E2</button>
+                    <button class="rxn-tab" data-rxn="e1">E1</button>
+                </div>
+                <div class="canvas-wrapper"><canvas id="simCanvas" width="800" height="450"></canvas></div>
+                <div class="stats-panel">
+                    <div class="stat-item"><span class="label">Mechanism:</span><span class="val" id="statMech">SN2</span></div>
+                    <div class="stat-item"><span class="label">Steps:</span><span class="val" id="statSteps">1</span></div>
+                    <div class="stat-item"><span class="label">Stereo:</span><span class="val" id="statStereo">Inversion</span></div>
+                    <div class="stat-item"><span class="label">Rate:</span><span class="val" id="statRate">k[RX][Nu]</span></div>
+                </div>
+            </div>
+            <div class="controls-panel">
+                <h3>Reaction Conditions</h3>
+                <div class="control-group"><label>Substrate:</label>
+                    <select id="substrate" style="width:100%;padding:0.5rem;background:var(--border-color);color:#fff;border:none;border-radius:6px;">
+                        <option value="primary">Primary (1\u00b0)</option>
+                        <option value="secondary" selected>Secondary (2\u00b0)</option>
+                        <option value="tertiary">Tertiary (3\u00b0)</option>
+                    </select>
+                </div>
+                <div class="control-group"><label>Nucleophile Strength:</label>
+                    <select id="nucStrength" style="width:100%;padding:0.5rem;background:var(--border-color);color:#fff;border:none;border-radius:6px;">
+                        <option value="strong" selected>Strong (OH\u207b, CN\u207b)</option>
+                        <option value="weak">Weak (H\u2082O, ROH)</option>
+                    </select>
+                </div>
+                <div class="control-group"><label>Solvent:</label>
+                    <select id="solvent" style="width:100%;padding:0.5rem;background:var(--border-color);color:#fff;border:none;border-radius:6px;">
+                        <option value="polar-aprotic" selected>Polar Aprotic (DMSO, acetone)</option>
+                        <option value="polar-protic">Polar Protic (H\u2082O, ROH)</option>
+                    </select>
+                </div>
+                <div class="sim-buttons"><button class="sim-btn primary" id="runBtn">Run Mechanism</button></div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/obfuscated/chemistry/organic-reactions-inline.js"></script>
+    <script src="../js/obfuscated/chemistry/organic-reactions-inline.js"></script>            </body>
+</html>

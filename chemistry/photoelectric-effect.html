@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photoelectric Effect - Pankaj Classes</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .navbar-sim {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-sim .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .navbar-sim .site-logo {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3));
+        }
+        .navbar-sim .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .navbar-sim .logo-text h1 {
+            font-size: 1.1rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--physics-color), var(--primary), var(--chemistry-color), var(--maths-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .navbar-sim .nav-center {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar-sim .nav-center h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #cccccc, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .navbar-sim .back-btn {
+            margin: 0;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .sim-page { padding: 0; height: calc(100vh - 70px); display: flex; flex-direction: column; }
+        .sim-container { display: flex; flex: 1; gap: 0; overflow: hidden; }
+        .sim-container > div:first-child { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+        .canvas-wrapper { flex: 1; margin: 0.5rem; margin-bottom: 0.3rem; border-radius: var(--radius); overflow: hidden; background: #111424; }
+        .canvas-wrapper canvas { width: 100%; height: 100%; display: block; }
+        .controls-panel { width: 280px; max-height: none; overflow-y: auto; margin: 0.5rem; padding: 1rem; border-radius: var(--radius); background: #1a1f38; color: #fff; font-family: sans-serif; }
+        .controls-panel h3 { margin-top: 0; margin-bottom: 1rem; font-size: 1.1rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
+        .control-group { margin-bottom: 1.2rem; }
+        .control-group label { display: block; font-size: 0.85rem; margin-bottom: 0.4rem; color: #cbd5e1; }
+        .control-group input[type="range"] { width: 100%; height: 6px; border-radius: 3px; background: #334155; outline: none; -webkit-appearance: none; }
+        .control-group input[type="range"]::-webkit-slider-thumb { width: 16px; height: 16px; border-radius: 50%; background: #6366f1; cursor: pointer; -webkit-appearance: none; }
+        .control-group select { width: 100%; padding: 0.4rem; border-radius: 4px; background: #0f172a; color: #fff; border: 1px solid #334155; }
+        .info-box { font-size: 0.8rem; margin-top: 1rem; padding: 0.8rem; background: rgba(15, 23, 42, 0.6); border-radius: 6px; border: 1px solid #334155; line-height: 1.4; }
+        .stat-val { font-weight: bold; color: #f59e0b; float: right; }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-sim">
+            <img src="../assets/logo.png" alt="Logo" class="site-logo">
+            <div class="logo-text"><h1>Pankaj Classes</h1></div>
+            <div class="nav-center"><h1>Photoelectric Effect</h1></div>
+            <button class="back-btn" onclick="window.location.href='../index.html#chemistry'">Back to Chemistry</button>
+        </nav>
+    </header>
+    <main class="sim-page">
+        <div class="sim-container">
+            <div>
+                <div class="canvas-wrapper">
+                    <canvas id="simCanvas"></canvas>
+                </div>
+            </div>
+            <div class="controls-panel">
+                <h3>Controls</h3>
+                
+                <div class="control-group">
+                    <label for="targetMaterial">Target Material (Cathode):</label>
+                    <select id="targetMaterial">
+                        <option value="2.3">Potassium (W = 2.30 eV)</option>
+                        <option value="2.7">Sodium (W = 2.70 eV)</option>
+                        <option value="4.3">Zinc (W = 4.30 eV)</option>
+                        <option value="4.7">Copper (W = 4.70 eV)</option>
+                        <option value="5.1">Platinum (W = 5.10 eV)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="lightWavelength">Light Wavelength: <span id="valWavelength" class="stat-val">400 nm</span></label>
+                    <input type="range" id="lightWavelength" min="100" max="800" value="400">
+                </div>
+
+                <div class="control-group">
+                    <label for="lightIntensity">Light Intensity: <span id="valIntensity" class="stat-val">50%</span></label>
+                    <input type="range" id="lightIntensity" min="0" max="100" value="50">
+                </div>
+
+                <div class="control-group">
+                    <label for="batteryVoltage">Voltage: <span id="valVoltage" class="stat-val">0.0 V</span></label>
+                    <input type="range" id="batteryVoltage" min="-5.0" max="5.0" step="0.1" value="0.0">
+                </div>
+
+                <div class="info-box">
+                    <strong>Live Readouts:</strong><br>
+                    Photon Energy: <span id="readoutE" style="color:#38bdf8; font-weight:bold;">3.10 eV</span><br>
+                    Max KE of Electron: <span id="readoutKE" style="color:#4ade80; font-weight:bold;">0.80 eV</span><br>
+                    Circuit Current: <span id="readoutI" style="color:#f43f5e; font-weight:bold;">7.50 mA</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/obfuscated/chemistry/photoelectric-effect-inline.js"></script>
+
+    <script src="../js/obfuscated/chemistry/photoelectric-effect-inline1.js"></script>
+            </body>
+</html>

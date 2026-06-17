@@ -1,0 +1,1529 @@
+/* ===== CSS Reset & Base ===== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #a855f7;
+    --primary-dark: #7c3aed;
+    --primary-glow: rgba(168, 85, 247, 0.4);
+    --physics-color: #22d3ee;
+    --physics-glow: rgba(34, 211, 238, 0.4);
+    --chemistry-color: #f472b6;
+    --chemistry-glow: rgba(244, 114, 182, 0.4);
+    --maths-color: #fb923c;
+    --maths-glow: rgba(251, 146, 60, 0.4);
+    --bg-dark: #0a0a1a;
+    --bg-card: rgba(26, 26, 46, 0.7);
+    --bg-card-hover: rgba(34, 34, 58, 0.9);
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0c0;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --radius: 20px;
+    --radius-sm: 12px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ===== Animated Background ===== */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background:
+        radial-gradient(ellipse at 20% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(244, 114, 182, 0.06) 0%, transparent 50%),
+        var(--bg-dark);
+    animation: bgShift 20s ease-in-out infinite alternate;
+}
+
+@keyframes bgShift {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+/* ===== Floating Particles ===== */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image:
+        radial-gradient(2px 2px at 20% 30%, rgba(168, 85, 247, 0.3), transparent),
+        radial-gradient(2px 2px at 40% 70%, rgba(34, 211, 238, 0.3), transparent),
+        radial-gradient(2px 2px at 60% 40%, rgba(244, 114, 182, 0.2), transparent),
+        radial-gradient(2px 2px at 80% 10%, rgba(251, 146, 60, 0.2), transparent),
+        radial-gradient(1px 1px at 10% 90%, rgba(255, 255, 255, 0.2), transparent),
+        radial-gradient(1px 1px at 70% 60%, rgba(255, 255, 255, 0.15), transparent),
+        radial-gradient(1px 1px at 90% 80%, rgba(255, 255, 255, 0.15), transparent),
+        radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.1), transparent);
+    background-size: 200px 200px;
+    animation: particles 40s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes particles {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-200px); }
+}
+
+/* ===== Header / Navbar ===== */
+header {
+    background: rgba(10, 10, 26, 0.85);
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.navbar {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+.site-logo {
+    height: 38px;
+    width: auto;
+    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.3));
+    transition: filter 0.3s ease;
+}
+
+.logo:hover .site-logo {
+    filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.6));
+}
+
+.logo-text h1 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--physics-color), var(--primary), var(--chemistry-color), var(--maths-color));
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 6s ease infinite;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.tagline {
+    font-size: 0.55rem;
+    color: var(--text-secondary);
+    margin-top: -2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.site-logo {
+    height: 48px;
+    width: auto;
+    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.3));
+    transition: filter 0.3s ease;
+}
+
+.logo:hover .site-logo {
+    filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.6));
+}
+
+.logo-text h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--physics-color), var(--primary), var(--chemistry-color), var(--maths-color));
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 6s ease infinite;
+    letter-spacing: -0.5px;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.tagline {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: -4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.menu-toggle span {
+    width: 28px;
+    height: 3px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+.navbar-back-btn {
+    padding: 0.45rem 1rem;
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    flex-shrink: 0;
+    display: none;
+}
+
+.navbar-back-btn.visible {
+    display: block;
+}
+
+.navbar-back-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+/* ===== Hero Section ===== */
+.hero-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff, #e0e0ff, var(--physics-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    animation: heroFadeIn 1s ease-out;
+}
+
+@keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin: 0 auto 3.5rem;
+    animation: heroFadeIn 1s ease-out 0.2s both;
+}
+
+/* ===== Subject Cards ===== */
+.subject-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.subject-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: cardFloat 0.8s ease-out both;
+}
+
+.subject-card:nth-child(1) { animation-delay: 0.1s; }
+.subject-card:nth-child(2) { animation-delay: 0.2s; }
+.subject-card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes cardFloat {
+    from { opacity: 0; transform: translateY(40px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.subject-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: var(--radius) var(--radius) 0 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.subject-card:hover::before {
+    opacity: 1;
+}
+
+.subject-card[data-subject="physics"]::before {
+    background: linear-gradient(90deg, transparent, var(--physics-color), transparent);
+}
+
+.subject-card[data-subject="chemistry"]::before {
+    background: linear-gradient(90deg, transparent, var(--chemistry-color), transparent);
+}
+
+.subject-card[data-subject="maths"]::before {
+    background: linear-gradient(90deg, transparent, var(--maths-color), transparent);
+}
+
+.subject-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.subject-card[data-subject="physics"]::after {
+    box-shadow: 0 0 40px var(--physics-glow), inset 0 0 40px rgba(34, 211, 238, 0.05);
+}
+
+.subject-card[data-subject="chemistry"]::after {
+    box-shadow: 0 0 40px var(--chemistry-glow), inset 0 0 40px rgba(244, 114, 182, 0.05);
+}
+
+.subject-card[data-subject="maths"]::after {
+    box-shadow: 0 0 40px var(--maths-glow), inset 0 0 40px rgba(251, 146, 60, 0.05);
+}
+
+.subject-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.subject-card:hover::after {
+    opacity: 1;
+}
+
+.subject-card[data-subject="physics"]:hover {
+    border-color: var(--physics-color);
+}
+
+.subject-card[data-subject="chemistry"]:hover {
+    border-color: var(--chemistry-color);
+}
+
+.subject-card[data-subject="maths"]:hover {
+    border-color: var(--maths-color);
+}
+
+.card-icon {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 1.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 0.4s ease;
+}
+
+.subject-card:hover .card-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.physics-bg {
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.2), rgba(34, 211, 238, 0.05));
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.15);
+}
+
+.chemistry-bg {
+    background: radial-gradient(circle, rgba(244, 114, 182, 0.2), rgba(244, 114, 182, 0.05));
+    box-shadow: 0 0 30px rgba(244, 114, 182, 0.15);
+}
+
+.maths-bg {
+    background: radial-gradient(circle, rgba(251, 146, 60, 0.2), rgba(251, 146, 60, 0.05));
+    box-shadow: 0 0 30px rgba(251, 146, 60, 0.15);
+}
+
+.card-icon svg {
+    width: 65px;
+    height: 65px;
+    transition: transform 0.4s ease;
+}
+
+.subject-card:hover .card-icon svg {
+    transform: scale(1.1);
+}
+
+.subject-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.subject-card[data-subject="physics"] h3 {
+    color: var(--physics-color);
+}
+
+.subject-card[data-subject="chemistry"] h3 {
+    color: var(--chemistry-color);
+}
+
+.subject-card[data-subject="maths"] h3 {
+    color: var(--maths-color);
+}
+
+.subject-card p {
+    color: var(--text-secondary);
+    margin-bottom: 1.8rem;
+    font-size: 0.95rem;
+    flex-grow: 1;
+}
+
+.explore-btn {
+    padding: 0.75rem 2.5rem;
+    border: 2px solid var(--primary);
+    background: transparent;
+    color: var(--text-primary);
+    border-radius: 50px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    position: relative;
+}
+
+.explore-btn:hover {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-color: transparent;
+    box-shadow: 0 0 25px var(--primary-glow);
+    transform: scale(1.05);
+}
+
+/* ===== Subject Section ===== */
+.subject-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+}
+
+.back-btn {
+    padding: 0.7rem 1.8rem;
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.back-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px var(--primary-glow);
+    transform: translateX(-5px);
+}
+
+.subject-section h2 {
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 800;
+    position: relative;
+}
+
+#physicsSection h2 {
+    border-bottom-color: var(--physics-color);
+    color: var(--physics-color);
+}
+
+#chemistrySection h2 {
+    border-bottom-color: var(--chemistry-color);
+    color: var(--chemistry-color);
+}
+
+#mathsSection h2 {
+    border-bottom-color: var(--maths-color);
+    color: var(--maths-color);
+}
+
+/* ===== Simulation Grid ===== */
+.simulation-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.sim-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.sim-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.sim-card:hover::before {
+    opacity: 1;
+}
+
+#physicsSection .sim-card:hover::before {
+    box-shadow: 0 0 30px var(--physics-glow), inset 0 0 30px rgba(34, 211, 238, 0.03);
+}
+
+#chemistrySection .sim-card:hover::before {
+    box-shadow: 0 0 30px var(--chemistry-glow), inset 0 0 30px rgba(244, 114, 182, 0.03);
+}
+
+#mathsSection .sim-card:hover::before {
+    box-shadow: 0 0 30px var(--maths-glow), inset 0 0 30px rgba(251, 146, 60, 0.03);
+}
+
+.sim-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.sim-card.inactive {
+    cursor: not-allowed;
+    opacity: 0.45;
+    pointer-events: none;
+    filter: grayscale(0.5);
+}
+
+.sim-card.inactive::after {
+    content: 'Coming Soon';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: #fdcb6e;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    z-index: 10;
+    border: 1px solid rgba(253, 203, 110, 0.3);
+    letter-spacing: 1px;
+}
+
+.sim-card:hover .sim-thumbnail canvas {
+    filter: brightness(1.15) contrast(1.05);
+}
+
+.sim-thumbnail {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: #0d0d20;
+    position: relative;
+}
+
+.sim-thumbnail::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(transparent, #0d0d20);
+    pointer-events: none;
+}
+
+.sim-thumbnail canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: filter 0.3s, transform 0.3s;
+}
+
+.sim-info {
+    padding: 1.3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.sim-info h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.sim-info p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+}
+
+.sim-tag {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+#physicsSection .sim-tag {
+    background: rgba(34, 211, 238, 0.12);
+    color: var(--physics-color);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+}
+
+#chemistrySection .sim-tag {
+    background: rgba(244, 114, 182, 0.12);
+    color: var(--chemistry-color);
+    border: 1px solid rgba(244, 114, 182, 0.2);
+}
+
+#mathsSection .sim-tag {
+    background: rgba(251, 146, 60, 0.12);
+    color: var(--maths-color);
+    border: 1px solid rgba(251, 146, 60, 0.2);
+}
+
+.sim-dropdown {
+    width: 100%;
+    padding: 0.7rem;
+    margin-top: 0.8rem;
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.15), rgba(168, 85, 247, 0.15));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(34, 211, 238, 0.5);
+    color: var(--text-primary);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: dropdownPulse 2s ease-in-out infinite;
+}
+
+@keyframes dropdownPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(34, 211, 238, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(34, 211, 238, 0.4); }
+}
+
+.sim-dropdown:hover, .sim-dropdown:focus {
+    border-color: var(--physics-color);
+    outline: none;
+    box-shadow: 0 0 25px rgba(34, 211, 238, 0.3);
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.25), rgba(168, 85, 247, 0.25));
+}
+
+.sim-dropdown option {
+    background: var(--bg-dark);
+    color: var(--text-primary);
+}
+
+/* ===== Hidden utility ===== */
+.hidden {
+    display: none !important;
+}
+
+/* ===== Simulation Page Styles ===== */
+.sim-page {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.sim-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.sim-page-header h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.sim-container {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 2rem;
+}
+
+.canvas-wrapper {
+    background: rgba(13, 13, 32, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    position: relative;
+}
+
+.canvas-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    z-index: 1;
+}
+
+.canvas-wrapper canvas {
+    width: 100%;
+    display: block;
+}
+
+.controls-panel {
+    background: var(--bg-card);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    max-height: 75vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 90px;
+}
+
+.controls-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.controls-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.controls-panel::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+.controls-panel h3 {
+    font-size: 1.15rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.control-group {
+    margin-bottom: 1.5rem;
+}
+
+.control-group label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.control-group label span.value {
+    color: var(--primary);
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.control-group input[type="range"] {
+    width: 100%;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(90deg, var(--primary), var(--border-color));
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.control-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px var(--primary-glow);
+    transition: transform 0.2s ease;
+}
+
+.control-group input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.control-group input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.sim-buttons {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 2rem;
+}
+
+.sim-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sim-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.sim-btn:hover::before {
+    opacity: 1;
+}
+
+.sim-btn:hover {
+    transform: translateY(-2px);
+}
+
+.sim-btn.primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.sim-btn.primary:hover {
+    box-shadow: 0 6px 25px var(--primary-glow);
+}
+
+.sim-btn.secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.sim-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary);
+}
+
+.info-box {
+    background: rgba(168, 85, 247, 0.08);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.info-box strong {
+    color: var(--primary);
+}
+
+/* Fullscreen button */
+.fs-btn {
+    margin: 0;
+    width: 160px;
+    text-align: center;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.fs-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px var(--primary-glow);
+}
+
+/* Stats panel */
+.stats-panel {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    box-shadow: var(--shadow);
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.stat-item .label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.stat-item .val {
+    color: var(--physics-color);
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+}
+
+#mathsSection ~ .sim-page .stat-item .val,
+.maths-sim .stat-item .val {
+    color: var(--maths-color);
+}
+
+.chemistry-sim .stat-item .val {
+    color: var(--chemistry-color);
+}
+
+/* ===== Footer ===== */
+footer {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    margin-top: 3rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    background: rgba(10, 10, 26, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* ===== Responsive Breakpoints ===== */
+
+/* Tablet & Small Desktop: Controls move to top bar */
+@media (max-width: 1200px) {
+    .sim-container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .canvas-wrapper {
+        flex: 1;
+        margin: 1rem;
+    }
+    
+    .controls-panel {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        max-height: 10vh;
+        border-radius: 0;
+        z-index: 999;
+        overflow-y: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .control-group {
+        flex: 0 0 auto;
+        margin-bottom: 0;
+    }
+}
+
+/* Tablet: Grid layouts adjust */
+@media (max-width: 1024px) {
+    .simulation-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sim-container {
+        grid-template-columns: 1fr;
+    }
+
+    .controls-panel {
+        max-height: none;
+        position: static;
+    }
+}
+
+/* Mobile: Single column layouts */
+@media (max-width: 768px) {
+    .subject-cards {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+
+    .simulation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+
+    .navbar {
+        padding: 0.6rem 1rem;
+    }
+
+    .logo-text h1 {
+        font-size: 1.1rem;
+    }
+
+    .site-logo {
+        height: 36px;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .hero-section {
+        padding: 3rem 1.5rem 2rem;
+    }
+
+    .subject-section {
+        padding: 2rem 1.5rem;
+    }
+
+    .sim-page {
+        padding: 0 !important;
+    }
+
+    /* ===== Mobile Simulation: Stacked Layout ===== */
+    /* Order: Navbar → Controls → Animation → Stats */
+    .navbar-sim {
+        flex-wrap: wrap;
+        height: auto !important;
+        min-height: 50px !important;
+        padding: 0.4rem 0.8rem !important;
+        gap: 0.4rem !important;
+    }
+
+    .navbar-sim .logo {
+        gap: 6px;
+    }
+
+    .navbar-sim .logo-text h1 {
+        font-size: 0.95rem !important;
+    }
+
+    .navbar-sim .nav-center h1 {
+        font-size: 1rem !important;
+    }
+
+    .navbar-sim .back-btn {
+        padding: 0.35rem 0.7rem !important;
+        font-size: 0.75rem !important;
+    }
+
+    .fs-btn {
+        padding: 0.35rem 0.6rem !important;
+        font-size: 0.7rem !important;
+        width: auto !important;
+        min-width: 40px !important;
+        border-radius: 8px !important;
+    }
+
+    .info-btn {
+        font-size: 1rem !important;
+        padding: 0.3rem 0.5rem !important;
+    }
+
+    .sim-container {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
+        height: calc(100vh - 55px) !important;
+        padding: 0 !important;
+    }
+
+    /* Reorder: Controls first, then animation+stats */
+    .sim-container > div:first-child {
+        order: 2 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100% !important;
+        flex: 1 !important;
+    }
+
+    .controls-panel {
+        order: 1 !important;
+        flex: 0 0 25% !important;
+        height: 25% !important;
+        position: static !important;
+        max-height: none !important;
+        border-radius: 0 !important;
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        padding: 0.6rem !important;
+        margin: 0 !important;
+        top: auto !important;
+        border-bottom: 1px solid var(--border-color) !important;
+        width: 100% !important;
+    }
+
+    .controls-panel h3 {
+        font-size: 0.95rem !important;
+        margin-bottom: 0.6rem !important;
+        white-space: nowrap !important;
+        display: inline-block !important;
+        margin-right: 1rem !important;
+    }
+
+    .controls-panel::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    .controls-panel::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .controls-panel::-webkit-scrollbar-thumb {
+        background: rgba(168, 85, 247, 0.3);
+        border-radius: 3px;
+    }
+
+    .controls-panel::-webkit-scrollbar-thumb:hover {
+        background: rgba(168, 85, 247, 0.5);
+    }
+
+    .controls-panel::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+
+    .controls-panel .control-group {
+        margin-bottom: 0.5rem !important;
+        min-width: auto !important;
+        flex-shrink: 0 !important;
+        display: inline-block !important;
+        margin-right: 0.8rem !important;
+        vertical-align: top !important;
+    }
+
+    .controls-panel .control-group label {
+        font-size: 0.75rem !important;
+        white-space: nowrap !important;
+        display: inline !important;
+        flex: none !important;
+    }
+
+    .controls-panel .control-group label span.value {
+        font-size: 0.75rem !important;
+    }
+
+    .controls-panel .control-group input[type="range"] {
+        width: 120px !important;
+        height: 5px !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
+    }
+
+    .controls-panel .control-group input[type="range"]::-webkit-slider-thumb {
+        width: 15px !important;
+        height: 15px !important;
+    }
+
+    .controls-panel .control-group input[type="checkbox"] {
+        margin-right: 0.3rem !important;
+        vertical-align: middle !important;
+        display: inline-block !important;
+    }
+
+    .controls-panel .control-group label {
+        display: inline !important;
+        align-items: center !important;
+        gap: 0.3rem !important;
+        white-space: nowrap !important;
+        flex: none !important;
+    }
+
+    .controls-panel .sim-buttons {
+        display: inline-flex !important;
+        flex-wrap: nowrap !important;
+        gap: 0.4rem !important;
+        margin-top: 0 !important;
+        vertical-align: top !important;
+    }
+
+    .controls-panel .sim-btn {
+        flex: 0 0 auto !important;
+        font-size: 0.75rem !important;
+        padding: 0.5rem 0.8rem !important;
+        white-space: nowrap !important;
+        display: inline-block !important;
+        vertical-align: middle !important;
+    }
+
+    /* 2. Animation - 55% */
+    .canvas-wrapper {
+        flex: 0 0 55% !important;
+        height: 55% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        border-bottom: 1px solid var(--border-color) !important;
+    }
+    
+    .canvas-wrapper::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .canvas-wrapper::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .canvas-wrapper::-webkit-scrollbar-thumb {
+        background: #555;
+        border-radius: 3px;
+    }
+    
+    .canvas-wrapper canvas {
+        height: 100% !important;
+        width: auto !important;
+    }
+
+    /* 3. Stats - 20% */
+    .stats-panel {
+        flex: 0 0 20% !important;
+        height: 20% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        overflow-y: auto !important;
+        padding: 0.5rem !important;
+        margin-top: 0 !important;
+    }
+
+    .stats-panel::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .stats-panel::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .stats-panel::-webkit-scrollbar-thumb {
+        background: rgba(168, 85, 247, 0.3);
+        border-radius: 2px;
+    }
+
+    .stat-item {
+        font-size: 0.7rem !important;
+        padding: 0.2rem 0.3rem !important;
+    }
+
+    .stat-item .label {
+        font-size: 0.65rem !important;
+    }
+
+    .stat-item .val {
+        font-size: 0.7rem !important;
+    }
+
+    .controls-panel::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .controls-panel::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .controls-panel::-webkit-scrollbar-thumb {
+        background: rgba(168, 85, 247, 0.3);
+        border-radius: 2px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+
+    .subject-section {
+        padding: 1.5rem 1rem;
+    }
+
+    .sim-page {
+        padding: 0.8rem;
+    }
+
+    .hero-content h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* ===== Hide Scrollbars ===== */
+html, body {
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+    display: none;
+}
+
+/* Allow scroll only on subject sections with simulation pages */
+.hero-section,
+.subject-section,
+.sim-page {
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.hero-section::-webkit-scrollbar,
+.subject-section::-webkit-scrollbar,
+.sim-page::-webkit-scrollbar {
+    display: none;
+}
+
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+    display: none;
+}
+
+.controls-panel::-webkit-scrollbar {
+    width: 4px;
+}
+
+.controls-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.controls-panel::-webkit-scrollbar-thumb {
+    background: rgba(168, 85, 247, 0.3);
+    border-radius: 2px;
+}
+
+.controls-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 247, 0.5);
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+    .subject-card,
+    .sim-card,
+    .explore-btn,
+    .back-btn,
+    .sim-btn,
+    .sim-thumbnail canvas,
+    .menu-toggle span {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .subject-card:hover {
+        transform: none;
+    }
+
+    .sim-card:hover {
+        transform: none;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    body::before, body::after {
+        animation: none !important;
+    }
+}
+
+/* ===== Info Modal ===== */
+.info-btn {
+    background: none;
+    border: 2px solid rgba(168, 85, 247, 0.5);
+    color: #a855f7;
+    font-size: 1.2rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+.info-btn:hover {
+    background: rgba(168, 85, 247, 0.15);
+    border-color: #a855f7;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+}
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+.modal-overlay.active {
+    display: flex;
+}
+.modal-content {
+    background: linear-gradient(135deg, #0a0a1a, #1a1a3a);
+    border: 2px solid rgba(168, 85, 247, 0.4);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+}
+.modal-content h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #a855f7;
+}
+.learn-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+.learn-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+.learn-list li:last-child {
+    border-bottom: none;
+}
+.modal-close {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: opacity 0.3s;
+}
+.modal-close:hover {
+    opacity: 0.85;
+}

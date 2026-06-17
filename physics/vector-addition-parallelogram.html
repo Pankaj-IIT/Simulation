@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallelogram Law - Vector Addition - Pankaj Classes</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .navbar-sim {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-sim .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .navbar-sim .site-logo {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3));
+        }
+        .navbar-sim .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .navbar-sim .logo-text h1 {
+            font-size: 1.1rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--physics-color), var(--primary), var(--chemistry-color), var(--maths-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .navbar-sim .nav-center {
+            flex: 1;
+            text-align: center;
+        }
+        .navbar-sim .nav-center h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #cccccc, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .navbar-sim .back-btn {
+            margin: 0;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .navbar-sim .logo {
+            width: 160px;
+            text-align: left;
+            flex-shrink: 0;
+        }
+
+        .navbar-sim .logo h1 {
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .navbar-sim .nav-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .navbar-sim .nav-center h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #cccccc, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-sim .back-btn {
+            margin: 0;
+            width: 160px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .sim-page {
+            padding: 0;
+            height: calc(100vh - 70px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sim-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sim-container > div:first-child {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .canvas-wrapper {
+            flex: 1;
+            margin: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .canvas-wrapper canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #000000;
+        }
+
+        .stats-panel {
+            margin: 0 1rem 1rem 1rem;
+            padding: 0.7rem;
+            font-size: 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+        }
+
+        .stats-panel .stat-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0.5rem 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .label {
+            color: var(--text-secondary);
+        }
+
+        .val {
+            color: #fdcb6e;
+            font-weight: bold;
+            font-family: monospace;
+        }
+
+        .controls-panel {
+            width: 320px;
+            overflow-y: auto;
+            margin: 1rem 1rem 1rem 0.5rem;
+            padding: 1rem;
+            border-radius: var(--radius);
+        }
+
+        .controls-panel h3 {
+            margin-bottom: 1rem;
+        }
+
+        .particle-heading {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin: 1rem 0 0.5rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .p1 { color: #00b894; }
+        .p2 { color: #e17055; }
+
+        .control-group {
+            margin-bottom: 0.8rem;
+        }
+
+        .control-group label {
+            font-size: 0.82rem;
+        }
+
+        .graph-toggles {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .graph-toggles label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+        }
+
+        .sim-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .sim-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .primary {
+            background: #0984e3;
+            color: white;
+        }
+
+        .secondary {
+            background: #444;
+            color: white;
+        }
+
+        .info-box {
+            font-size: 0.75rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 6px;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar navbar-sim">
+        <img src="../assets/logo.png" alt="Logo" class="site-logo">
+
+        <div class="logo-text"><h1>Pankaj Classes</h1></div>
+
+        <div class="nav-center">
+            <h1>Parallelogram Law of Vector Addition</h1>
+        </div>
+
+        <button class="back-btn"
+            onclick="window.location.href='../index.html#physics'">
+            Back to Physics
+        </button>
+    </nav>
+</header>
+
+<main class="sim-page">
+
+    <div class="sim-container">
+
+        <div>
+
+            <div class="canvas-wrapper">
+                <canvas id="simCanvas" width="900" height="650"></canvas>
+            </div>
+
+            <div class="stats-panel">
+
+                <div class="stat-row">
+
+                    <div class="stat-item">
+                        <span class="label">|A|:</span>
+                        <span class="val" id="statA">5.0</span>
+                    </div>
+
+                    <div class="stat-item">
+                        <span class="label">|B|:</span>
+                        <span class="val" id="statB">4.0</span>
+                    </div>
+
+                    <div class="stat-item">
+                        <span class="label">?:</span>
+                        <span class="val" id="statAngle">60°</span>
+                    </div>
+
+                    <div class="stat-item">
+                        <span class="label">|R|:</span>
+                        <span class="val" id="statR">0</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="controls-panel">
+
+            <h3>Controls</h3>
+
+            <div class="particle-heading p1">
+                Vector A (Green)
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Magnitude:
+                    <span id="mAVal">5</span>
+                </label>
+
+                <input type="range"
+                    id="mA"
+                    min="0"
+                    max="15"
+                    value="5"
+                    step="0.5">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Angle:
+                    <span id="aAVal">0</span>°
+                </label>
+
+                <input type="range"
+                    id="aA"
+                    min="0"
+                    max="360"
+                    value="0"
+                    step="5">
+            </div>
+
+            <div class="particle-heading p2">
+                Vector B (Orange)
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Magnitude:
+                    <span id="mBVal">4</span>
+                </label>
+
+                <input type="range"
+                    id="mB"
+                    min="0"
+                    max="15"
+                    value="4"
+                    step="0.5">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Angle:
+                    <span id="aBVal">60</span>°
+                </label>
+
+                <input type="range"
+                    id="aB"
+                    min="0"
+                    max="360"
+                    value="60"
+                    step="5">
+            </div>
+
+            <div class="graph-toggles">
+
+                <label>
+                    <input type="checkbox"
+                        id="showShifted"
+                        checked>
+                    Show shifted vectors
+                </label>
+
+            </div>
+
+            <div class="control-group">
+                <label>
+                    X Shift:
+                    <span id="shiftXVal">0</span>
+                </label>
+
+                <input type="range"
+                    id="shiftX"
+                    min="-250"
+                    max="250"
+                    value="0"
+                    step="10">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Y Shift:
+                    <span id="shiftYVal">0</span>
+                </label>
+
+                <input type="range"
+                    id="shiftY"
+                    min="-250"
+                    max="250"
+                    value="0"
+                    step="10">
+            </div>
+
+            <div class="sim-buttons">
+                <button class="sim-btn primary"
+                    id="startBtn">
+                    Start
+                </button>
+
+                <button class="sim-btn secondary"
+                    id="resetBtn">
+                    Reset
+                </button>
+            </div>
+
+            <div class="info-box">
+
+                <strong>Parallelogram Law:</strong><br><br>
+
+                If two vectors acting simultaneously at a point are represented by adjacent sides of a parallelogram, then the diagonal through the common point represents the resultant vector.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+<script src="../js/obfuscated/physics/vector-addition-parallelogram-inline.js"></script>
+
+<script src="../js/obfuscated/physics/vector-addition-parallelogram-inline.js"></script>
+
+            </body>
+</html>

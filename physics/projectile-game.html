@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectile Game - Kinematics - Pankaj Classes</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .navbar-sim{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+        .navbar-sim .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            flex-shrink:0;
+        }
+        .navbar-sim .site-logo{
+            height:40px;
+            width:auto;
+            filter:drop-shadow(0 0 6px rgba(168,85,247,0.3));
+        }
+        .navbar-sim .logo-text{
+            display:flex;
+            flex-direction:column;
+            align-items:flex-start;
+        }
+        .navbar-sim .logo-text h1{
+            font-size:1.1rem;
+            margin:0;
+            background:linear-gradient(135deg,var(--physics-color),var(--primary),var(--chemistry-color),var(--maths-color));
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+            font-weight:800;
+            line-height:1.2;
+        }
+        .navbar-sim .nav-center{
+            flex:1;
+            text-align:center;
+        }
+        .navbar-sim .nav-center h1{
+            font-size:1.3rem;
+            margin:0;
+            background:linear-gradient(135deg,#ffffff,#cccccc,#fdcb6e);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+        }
+        .navbar-sim .back-btn{
+            margin:0;
+            padding:0.5rem 1rem;
+            text-align:center;
+            flex-shrink:0;
+        }
+        .sim-page{
+            padding:0;
+            height:calc(100vh - 70px);
+            display:flex;
+            flex-direction:column;
+        }
+        .sim-container{
+            display:flex;
+            flex:1;
+            overflow:hidden;
+        }
+        .sim-container > div:first-child{
+            flex:1;
+            display:flex;
+            flex-direction:column;
+            min-width:0;
+        }
+        .canvas-wrapper{
+            flex:1;
+            margin:1rem;
+            margin-bottom:0.5rem;
+            border-radius:12px;
+            overflow:hidden;
+        }
+        .canvas-wrapper canvas{
+            width:100%;
+            height:100%;
+            display:block;
+        }
+        .stats-panel{
+            margin:0 1rem 1rem 1rem;
+            padding:0.8rem;
+            background:var(--bg-card);
+            border:1px solid var(--border-color);
+            border-radius:10px;
+            display:grid;
+            grid-template-columns:1fr 1fr 1fr;
+            gap:0.8rem 1.5rem;
+        }
+        .stat-item{
+            display:flex;
+            justify-content:space-between;
+            padding:0.2rem 0;
+            font-size:0.9rem;
+        }
+        .stat-item .label{
+            color:var(--text-secondary);
+        }
+        .stat-item .val{
+            color:var(--physics-color);
+            font-weight:600;
+            font-family:monospace;
+        }
+        .controls-panel{
+            width:300px;
+            overflow-y:auto;
+            margin:1rem 1rem 1rem 0.5rem;
+            padding:1.2rem;
+            border-radius:12px;
+        }
+        .control-group{
+            margin-bottom:1rem;
+        }
+        .control-group label{
+            font-size:1rem;
+        }
+        .control-group label span.value{
+            font-size:1rem;
+            font-weight:700;
+            color:#fdcb6e;
+            font-family:monospace;
+        }
+        .sim-buttons{
+            display:flex;
+            gap:0.5rem;
+            margin-top:1rem;
+        }
+        .sim-btn{
+            flex:1;
+            padding:0.8rem;
+            border:none;
+            border-radius:8px;
+            font-size:1rem;
+            font-weight:600;
+            cursor:pointer;
+        }
+        .sim-btn.primary{
+            background:var(--primary);
+            color:white;
+        }
+        .sim-btn.secondary{
+            background:var(--border-color);
+            color:var(--text-primary);
+        }
+        .info-box{
+            font-size:0.95rem;
+            margin-top:1rem;
+            padding:1rem;
+            background:rgba(108,92,231,0.1);
+            border:1px solid rgba(108,92,231,0.3);
+            border-radius:10px;
+            color:var(--text-secondary);
+            line-height:1.6;
+        }
+        .score-display{
+            background:rgba(0,184,148,0.1);
+            border:1px solid rgba(0,184,148,0.3);
+            border-radius:8px;
+            padding:1rem;
+            margin-bottom:1rem;
+            text-align:center;
+        }
+        .score-display .label{
+            font-size:1rem;
+            color:var(--text-secondary);
+        }
+        .score-display .value{
+            font-size:2.5rem;
+            font-weight:700;
+            color:var(--physics-color);
+            font-family:monospace;
+        }
+        .result-flash{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            font-size:4rem;
+            font-weight:800;
+            font-family:monospace;
+            pointer-events:none;
+            opacity:0;
+            transition:opacity 0.3s;
+            z-index:10;
+        }
+        .result-flash.show{
+            opacity:1;
+        }
+        .result-flash.hit{
+            color:#00b894;
+        }
+        .result-flash.miss{
+            color:#e17055;
+        }
+        .canvas-wrapper{
+            position:relative;
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar navbar-sim">
+        <img src="../assets/logo.png" alt="Logo" class="site-logo">
+
+        <div class="logo-text"><h1>Pankaj Classes</h1></div>
+        <div class="nav-center">
+            <h1>Projectile Game</h1>
+        </div>
+        <button class="back-btn"
+                onclick="window.location.href='../index.html#physics'">
+            Back to Physics
+        </button>
+    </nav>
+</header>
+
+<main class="sim-page">
+    <div class="sim-container">
+        <div>
+            <div class="canvas-wrapper">
+                <canvas id="simCanvas" width="1000" height="650"></canvas>
+                <div class="result-flash" id="resultFlash"></div>
+            </div>
+            <div class="stats-panel">
+                <div>
+                    <div class="stat-item">
+                        <span class="label">Gravity:</span>
+                        <span class="val" id="statG">9.8 m/s²</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Projectile Speed:</span>
+                        <span class="val" id="statSpeed">50 m/s</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="stat-item">
+                        <span class="label">Launch Angle:</span>
+                        <span class="val" id="statAngle">45°</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Theoretical Range:</span>
+                        <span class="val" id="statRange">0 m</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="stat-item">
+                        <span class="label">Time of Flight:</span>
+                        <span class="val" id="statTime">0 s</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Max Height:</span>
+                        <span class="val" id="statMaxH">0 m</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-panel">
+            <h3>Controls</h3>
+
+            <div class="score-display">
+                <div class="label">Score</div>
+                <div class="value" id="scoreVal">0</div>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Cannon Height:
+                    <span class="value" id="cannonHVal">5 m</span>
+                </label>
+                <input type="range" id="cannonHeight" min="0" max="30" value="5" step="1">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Projectile Speed:
+                    <span class="value" id="speedVal">50 m/s</span>
+                </label>
+                <input type="range" id="projSpeed" min="10" max="100" value="50" step="1">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    Launch Angle:
+                    <span class="value" id="angleVal">45°</span>
+                </label>
+                <input type="range" id="launchAngle" min="5" max="85" value="45" step="1">
+            </div>
+
+            <div class="sim-buttons">
+                <button class="sim-btn primary" id="fireBtn">Fire!</button>
+                <button class="sim-btn secondary" id="resetBtn">Reset</button>
+            </div>
+
+            <div class="info-box">
+                <strong>How to Play</strong><br><br>
+                A platform appears at random height with a target ball on it.<br><br>
+                Adjust cannon height, speed & angle to hit the target.<br><br>
+                Hit target: <span style="color:#00b894">+5 points</span><br>
+                Miss: <span style="color:#e17055">-1 point</span><br><br>
+                <strong>Formulas:</strong><br>
+                Range = (v² sin 2?) / g<br>
+                Max H = (v² sin² ?) / 2g<br>
+                Time = 2v sin? / g
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="../js/obfuscated/physics/projectile-game-inline.js"></script>
+
+<script src="../js/obfuscated/physics/projectile-game-inline.js"></script>
+
+            </body>
+</html>

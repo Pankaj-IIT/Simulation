@@ -1,0 +1,5 @@
+node_modules/
+js/extracted/
+#js/obfuscated/
+package-lock.json
+video

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutherford Scattering - Single Atom View</title>
+    <style>
+        :root {
+            --bg-dark: #050510;
+            --bg-card: #111126;
+            --border-color: #222244;
+            --text-main: #ffffff;
+            --text-secondary: #8585aa;
+            --primary: #a855f7;
+            --chemistry-color: #fdcb6e;
+            --radius: 12px;
+            --radius-sm: 6px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow: hidden;
+        }
+
+        header {
+            background-color: #0a0a1f;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.5rem 1.5rem;
+        }
+
+        .navbar-sim {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px;
+        }
+
+        .navbar-sim .logo-text h1 {
+            font-size: 1.2rem;
+            margin: 0;
+            background: linear-gradient(135deg, #a855f7, #fdcb6e, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .navbar-sim .nav-center h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #cccccc, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #444477;
+        }
+
+        .sim-page {
+            height: calc(100vh - 67px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sim-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sim-container > div:first-child {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            padding: 1rem;
+        }
+
+        .canvas-wrapper {
+            flex: 1;
+            background: #020208;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .canvas-wrapper canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .stats-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .stat-item .label {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-item .val {
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+
+        .controls-panel {
+            width: 320px;
+            background: var(--bg-card);
+            border-left: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .controls-panel h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .control-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .control-group label .value {
+            color: var(--chemistry-color);
+            font-weight: 600;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .control-group select {
+            width: 100%;
+            padding: 0.6rem;
+            background: #181830;
+            color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            outline: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .sim-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .sim-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sim-btn.primary {
+            background: var(--primary);
+            border-color: transparent;
+        }
+
+        .sim-btn.primary:hover {
+            background: #b566ff;
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+        }
+
+        .sim-btn:not(.primary):hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .info-box {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+        }
+
+        .navbar-sim .site-logo {
+            height: 40px !important;
+            width: auto !important;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3));
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SCFHT9W3K"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-sim">
+            <div class="logo">
+                <img src="../assets/logo.png" alt="Logo" class="site-logo">
+                <div class="logo-text"><h1>Pankaj Classes</h1></div>
+            </div>
+            <div class="nav-center"><h1>Rutherford Scattering Experiment</h1></div>
+            <button class="back-btn" onclick="window.location.href='../index.html#chemistry'">Back to Chemistry</button>
+        </nav>
+    </header>
+    
+    <main class="sim-page">
+        <div class="sim-container">
+            <div>
+                <div class="canvas-wrapper">
+                    <canvas id="simCanvas" width="800" height="400"></canvas>
+                </div>
+                
+                <div class="stats-panel">
+                    <div class="stat-item"><span class="label">Total Alpha Count</span><span class="val" id="statTotal" style="color: #fff;">0</span></div>
+                    <div class="stat-item"><span class="label">Straight Paths</span><span class="val" id="statStraight" style="color:#00b894;">0</span></div>
+                    <div class="stat-item"><span class="label">Small Deflections</span><span class="val" id="statSmall" style="color:#fdcb6e;">0</span></div>
+                    <div class="stat-item"><span class="label">Bounced / Wide Turns</span><span class="val" id="statLarge" style="color:#ff6b6b;">0</span></div>
+                    <div class="stat-item"><span class="label">Empty Space %</span><span class="val" id="statStraightPct" style="color:#00b894;">0%</span></div>
+                    <div class="stat-item"><span class="label">Deflection %</span><span class="val" id="statLargePct" style="color:#ff6b6b;">0%</span></div>
+                </div>
+            </div>
+            
+            <div class="controls-panel">
+                <h3>Experiment Controls</h3>
+                
+                <div class="control-group">
+                    <label>Atom Radius / Size: <span class="value" id="sizeVal">180px</span></label>
+                    <input type="range" id="atomSize" min="100" max="250" value="180" step="10">
+                </div>
+
+                <div class="control-group">
+                    <label>Alpha Beam Kinetic Energy: <span class="value" id="energyVal">Medium</span></label>
+                    <select id="energy">
+                        <option value="low">Low Speed (Exhibits higher curvature)</option>
+                        <option value="medium" selected>Medium Speed</option>
+                        <option value="high">High Speed (Dashes through tightly)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Particle Emission Rate: <span class="value" id="rateVal">Normal</span></label>
+                    <select id="scatterRate">
+                        <option value="slow">Slow Stream</option>
+                        <option value="normal" selected>Normal Flow</option>
+                        <option value="fast">Rapid Fire burst</option>
+                    </select>
+                </div>
+                
+                <div class="sim-buttons">
+                    <button class="sim-btn primary" id="startBtn">Fire α-particles</button>
+                    <button class="sim-btn" id="resetBtn">Reset View</button>
+                </div>
+                
+                <div class="info-box">
+                    <strong>Teaching Insight:</strong> Notice how expanding the entry window creates a true probabilistic distribution. The vast majority of alpha particles pass completely straight through the empty atomic area.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/obfuscated/chemistry/rutherford-scattering-inline.js"></script>
+    <script src="../js/obfuscated/chemistry/rutherford-scattering-inline.js"></script>
+            </body>
+</html>
