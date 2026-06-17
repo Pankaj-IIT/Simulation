@@ -33,3 +33,7 @@ Edit `build-protect.cjs` to change obfuscation settings. Available options inclu
 - `js/extracted/` and `js/obfuscated/` are gitignored
 - Run this script after editing any HTML files with inline scripts
 - The `node_modules/` directory is gitignored
+
+## Recent Updates
+
+- Added Spinning of Electron simulation to navigation
